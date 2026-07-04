@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UK Job Market Intelligence 2026 | Gaurav Indora</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#080f1a;--navy2:#0f1e2f;--navy3:#162030;--navy4:#1e2d40;
+  --blue:#1565c0;--blue2:#2196f3;--blue3:#64b5f6;
+  --red:#c62828;--red2:#ef5350;
+  --green:#2e7d32;--green2:#4caf50;--green3:#81c784;
+  --gold:#f9a825;--gold2:#ffd54f;
+  --white:#ffffff;--text:#e8f0fe;--text2:#90a4ae;--text3:#546e7a;
+  --border:#1e3048;--card:rgba(15,30,47,0.9);--card2:rgba(22,32,48,0.95);
+  --glow-blue:rgba(33,150,243,0.25);--glow-red:rgba(239,83,80,0.25);
+  --glow-gold:rgba(249,168,37,0.25);--glow-green:rgba(76,175,80,0.25);
+  --sidebar-w:230px;
+  --ease:cubic-bezier(0.4,0,0.2,1);
+}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--navy);color:var(--text);display:flex;flex-direction:column;min-height:100vh;overflow-x:hidden}
+
+/* GRADIENT ANIMATED TOP BAR */
+.topbar{background:var(--navy2);border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;z-index:100;position:relative}
+.topbar::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--blue2),var(--gold),var(--green2),var(--blue2),var(--blue));background-size:300% 100%;animation:gradientFlow 6s linear infinite}
+@keyframes gradientFlow{0%{background-position:0% 0%}100%{background-position:300% 0%}}
+.topbar-left{display:flex;align-items:center;gap:16px}
+.logo-mark{display:flex;align-items:center;gap:8px}
+.logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--blue),var(--blue2));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:white}
+.logo-text{font-size:0.75rem;font-weight:800;color:var(--blue3);letter-spacing:1.8px;text-transform:uppercase}
+.proj-name{font-size:0.9rem;color:var(--text);font-weight:600}
+.topbar-sep{width:1px;height:22px;background:var(--border)}
+.topbar-right{display:flex;align-items:center;gap:18px;font-size:0.78rem;color:var(--text2)}
+.topbar-right span{display:flex;align-items:center;gap:5px}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green2);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 var(--glow-green)}50%{opacity:0.8;box-shadow:0 0 0 6px transparent}}
+.badge{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;padding:4px 12px;border-radius:20px;font-size:0.7rem;font-weight:700;letter-spacing:0.5px}
+#clock{font-variant-numeric:tabular-nums;color:var(--text2);font-size:0.75rem}
+
+/* LAYOUT */
+.layout{display:flex;flex:1;overflow:hidden}
+
+/* SIDEBAR */
+.sidebar{width:var(--sidebar-w);background:var(--navy2);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+.sidebar-section{padding:16px 18px 6px;font-size:0.64rem;font-weight:800;letter-spacing:2px;color:var(--text3);text-transform:uppercase}
+.nav-item{display:flex;align-items:center;gap:11px;padding:11px 18px;cursor:pointer;border-left:3px solid transparent;transition:all 0.2s var(--ease);font-size:0.84rem;color:var(--text2);user-select:none;position:relative;overflow:hidden}
+.nav-item::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(33,150,243,0.05));opacity:0;transition:opacity 0.2s}
+.nav-item:hover{background:rgba(33,150,243,0.08);color:var(--text);border-left-color:rgba(33,150,243,0.4)}
+.nav-item:hover::before{opacity:1}
+.nav-item.active{background:rgba(33,150,243,0.14);color:var(--blue2);border-left-color:var(--blue2);font-weight:600}
+.nav-icon{font-size:1.05rem;width:20px;text-align:center;flex-shrink:0}
+.nav-badge{margin-left:auto;background:rgba(239,83,80,0.2);color:var(--red2);font-size:0.6rem;font-weight:700;padding:2px 6px;border-radius:8px}
+.sidebar-divider{height:1px;background:var(--border);margin:10px 0}
+.sidebar-footer{padding:16px 18px;margin-top:auto;border-top:1px solid var(--border)}
+.author-card{display:flex;flex-direction:column;gap:4px}
+.author-name{font-size:0.85rem;font-weight:700;color:var(--text)}
+.author-title{font-size:0.72rem;color:var(--text2)}
+.author-email{font-size:0.68rem;color:var(--blue2);margin-top:2px}
+
+/* MAIN */
+.main{flex:1;overflow-y:auto;display:flex;flex-direction:column;scroll-behavior:smooth}
+
+/* PAGE HEADER */
+.page-header{background:var(--navy2);border-bottom:1px solid var(--border);padding:18px 28px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:sticky;top:0;z-index:50;backdrop-filter:blur(10px)}
+.page-title{font-size:1.1rem;font-weight:800;color:var(--text);letter-spacing:-0.3px}
+.page-subtitle{font-size:0.76rem;color:var(--text2);margin-top:3px;line-height:1.4}
+.page-actions{display:flex;gap:10px}
+.btn{padding:7px 18px;border-radius:8px;font-size:0.76rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s var(--ease);letter-spacing:0.3px}
+.btn-primary{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;box-shadow:0 2px 8px rgba(33,150,243,0.3)}
+.btn-primary:hover{box-shadow:0 4px 16px rgba(33,150,243,0.5);transform:translateY(-1px)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text2)}
+.btn-outline:hover{border-color:var(--blue);color:var(--blue2)}
+
+/* CONTENT */
+.content{padding:22px 26px;flex:1}
+
+/* PAGE TRANSITIONS */
+.page{display:none}
+.page.active{display:block;animation:pageIn 0.35s var(--ease)}
+@keyframes pageIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* KPI STRIP */
+.kpi-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:22px}
+.kpi-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px;position:relative;overflow:hidden;transition:all 0.25s var(--ease);cursor:default}
+.kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:12px 12px 0 0}
+.kpi-card::after{content:'';position:absolute;inset:0;opacity:0;transition:opacity 0.3s;border-radius:12px}
+.kpi-card:hover{transform:translateY(-2px)}
+.kpi-card.blue::before{background:linear-gradient(90deg,var(--blue),var(--blue2))}
+.kpi-card.blue:hover{box-shadow:0 8px 24px var(--glow-blue);border-color:rgba(33,150,243,0.3)}
+.kpi-card.red::before{background:linear-gradient(90deg,var(--red),var(--red2))}
+.kpi-card.red:hover{box-shadow:0 8px 24px var(--glow-red);border-color:rgba(239,83,80,0.3)}
+.kpi-card.green::before{background:linear-gradient(90deg,var(--green),var(--green2))}
+.kpi-card.green:hover{box-shadow:0 8px 24px var(--glow-green);border-color:rgba(76,175,80,0.3)}
+.kpi-card.gold::before{background:linear-gradient(90deg,#e65100,var(--gold))}
+.kpi-card.gold:hover{box-shadow:0 8px 24px var(--glow-gold);border-color:rgba(249,168,37,0.3)}
+.kpi-card.grey::before{background:linear-gradient(90deg,#37474f,#546e7a)}
+.kpi-label{font-size:0.68rem;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;font-weight:600}
+.kpi-value{font-size:1.85rem;font-weight:900;color:var(--text);line-height:1;letter-spacing:-1px;font-variant-numeric:tabular-nums}
+.kpi-delta{font-size:0.7rem;margin-top:8px;display:flex;align-items:center;gap:4px;line-height:1.3}
+.kpi-delta.down{color:var(--red2)}
+.kpi-delta.up{color:var(--green2)}
+.kpi-delta.warn{color:var(--gold)}
+.kpi-delta.neutral{color:var(--text3)}
+
+/* CHART GRID */
+.chart-grid{display:grid;gap:16px;margin-bottom:18px}
+.chart-grid.g2{grid-template-columns:1fr 1fr}
+.chart-grid.g3{grid-template-columns:2fr 1fr}
+.chart-grid.g1{grid-template-columns:1fr}
+
+/* CHART CARD - GLASSMORPHISM */
+.chart-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;transition:all 0.25s var(--ease);position:relative;overflow:hidden}
+.chart-card:hover{border-color:rgba(33,150,243,0.2);box-shadow:0 4px 20px rgba(0,0,0,0.3)}
+.chart-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
+.chart-title{font-size:0.88rem;font-weight:700;color:var(--text);letter-spacing:-0.2px}
+.chart-source{font-size:0.65rem;color:var(--text3);margin-top:3px}
+.chart-badge{padding:3px 10px;border-radius:8px;font-size:0.65rem;font-weight:700;white-space:nowrap}
+.chart-badge.blue{background:rgba(33,150,243,0.15);color:var(--blue2);border:1px solid rgba(33,150,243,0.2)}
+.chart-badge.red{background:rgba(239,83,80,0.15);color:var(--red2);border:1px solid rgba(239,83,80,0.2)}
+.chart-badge.green{background:rgba(76,175,80,0.15);color:var(--green2);border:1px solid rgba(76,175,80,0.2)}
+.chart-badge.gold{background:rgba(249,168,37,0.15);color:var(--gold);border:1px solid rgba(249,168,37,0.2)}
+canvas{max-height:240px}
+
+/* DATA TABLE */
+.data-table{width:100%;border-collapse:collapse;font-size:0.82rem}
+.data-table th{background:rgba(30,48,72,0.6);color:var(--text2);padding:10px 14px;text-align:left;font-size:0.66rem;text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid var(--border);font-weight:700;white-space:nowrap}
+.data-table td{padding:10px 14px;border-bottom:1px solid rgba(30,48,72,0.4);color:var(--text)}
+.data-table tr:hover td{background:rgba(33,150,243,0.05)}
+.data-table .pos{color:var(--green2);font-weight:700}
+.data-table .neg{color:var(--red2);font-weight:700}
+.data-table .warn{color:var(--gold);font-weight:700}
+.pill{display:inline-block;padding:3px 10px;border-radius:20px;font-size:0.67rem;font-weight:700;letter-spacing:0.3px}
+.pill.red{background:rgba(239,83,80,0.15);color:var(--red2);border:1px solid rgba(239,83,80,0.2)}
+.pill.green{background:rgba(76,175,80,0.15);color:var(--green2);border:1px solid rgba(76,175,80,0.2)}
+.pill.blue{background:rgba(33,150,243,0.15);color:var(--blue2);border:1px solid rgba(33,150,243,0.2)}
+.pill.gold{background:rgba(249,168,37,0.15);color:var(--gold);border:1px solid rgba(249,168,37,0.2)}
+.pill.grey{background:rgba(84,110,122,0.15);color:var(--text2);border:1px solid var(--border)}
+
+/* INSIGHT BOX */
+.insight{background:rgba(33,150,243,0.06);border:1px solid rgba(33,150,243,0.2);border-left:4px solid var(--blue2);border-radius:0 10px 10px 0;padding:14px 18px;font-size:0.82rem;line-height:1.7;color:var(--text);margin-bottom:18px}
+.insight strong{color:var(--blue2)}
+.insight.warn{background:rgba(249,168,37,0.06);border-color:rgba(249,168,37,0.2);border-left-color:var(--gold)}
+.insight.warn strong{color:var(--gold)}
+.insight.red{background:rgba(239,83,80,0.06);border-color:rgba(239,83,80,0.2);border-left-color:var(--red2)}
+.insight.red strong{color:var(--red2)}
+.insight.green{background:rgba(76,175,80,0.06);border-color:rgba(76,175,80,0.2);border-left-color:var(--green2)}
+.insight.green strong{color:var(--green2)}
+
+/* FILTER TABS */
+.filter-tabs{display:flex;gap:0;margin-bottom:18px;border-radius:10px;overflow:hidden;border:1px solid var(--border);width:fit-content}
+.filter-tab{padding:8px 18px;font-size:0.76rem;font-weight:600;cursor:pointer;color:var(--text2);background:transparent;border:none;transition:all 0.15s;border-right:1px solid var(--border)}
+.filter-tab:last-child{border-right:none}
+.filter-tab:hover{background:rgba(33,150,243,0.08);color:var(--text)}
+.filter-tab.active{background:rgba(33,150,243,0.18);color:var(--blue2)}
+
+/* SKILL BARS */
+.skill-row{display:flex;align-items:center;gap:12px;margin-bottom:9px;opacity:0;transform:translateX(-10px);transition:all 0.4s var(--ease)}
+.skill-row.visible{opacity:1;transform:translateX(0)}
+.skill-name{font-size:0.77rem;color:var(--text);width:140px;flex-shrink:0;text-align:right;font-weight:500}
+.skill-bar-bg{flex:1;background:rgba(30,48,72,0.8);border-radius:6px;height:18px;overflow:hidden;position:relative}
+.skill-bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;font-size:0.65rem;font-weight:800;color:#fff;width:0;transition:width 0.8s var(--ease)}
+.skill-tag{flex-shrink:0;width:60px;text-align:center}
+
+/* HYPOTHESIS SCOREBOARD */
+.hypothesis-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px}
+.hypothesis-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;cursor:pointer;transition:all 0.25s var(--ease);user-select:none}
+.hypothesis-card:hover{transform:translateY(-2px)}
+.hypothesis-card.confirmed{border-color:rgba(76,175,80,0.3);box-shadow:0 4px 16px rgba(76,175,80,0.1)}
+.hypothesis-card.rejected{border-color:rgba(239,83,80,0.3);box-shadow:0 4px 16px rgba(239,83,80,0.1)}
+.hypothesis-card.partial{border-color:rgba(249,168,37,0.3);box-shadow:0 4px 16px rgba(249,168,37,0.1)}
+.hypothesis-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
+.hypothesis-num{font-size:0.65rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px}
+.hypothesis-verdict{font-size:0.65rem;font-weight:800;padding:3px 10px;border-radius:10px;letter-spacing:0.5px}
+.hypothesis-card.confirmed .hypothesis-verdict{background:rgba(76,175,80,0.15);color:var(--green2)}
+.hypothesis-card.rejected .hypothesis-verdict{background:rgba(239,83,80,0.15);color:var(--red2)}
+.hypothesis-card.partial .hypothesis-verdict{background:rgba(249,168,37,0.15);color:var(--gold)}
+.hypothesis-text{font-size:0.83rem;font-weight:700;color:var(--text);line-height:1.4;margin-bottom:10px}
+.hypothesis-evidence{font-size:0.75rem;color:var(--text2);line-height:1.5;display:none}
+.hypothesis-card.open .hypothesis-evidence{display:block}
+.hypothesis-toggle{font-size:0.65rem;color:var(--text3);margin-top:8px;display:flex;align-items:center;gap:4px}
+
+/* KEY EVENTS TIMELINE */
+.timeline{position:relative;padding-left:20px;margin-bottom:20px}
+.timeline::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,var(--blue2),var(--gold),var(--red2));border-radius:2px}
+.timeline-item{position:relative;padding:0 0 20px 24px;cursor:default}
+.timeline-item:last-child{padding-bottom:0}
+.timeline-dot{position:absolute;left:-5px;top:6px;width:12px;height:12px;border-radius:50%;border:2px solid var(--navy)}
+.timeline-date{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.timeline-title{font-size:0.84rem;font-weight:700;color:var(--text);margin-bottom:3px}
+.timeline-detail{font-size:0.75rem;color:var(--text2);line-height:1.5}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--navy)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--navy4)}
+
+/* PRINT */
+@media print{.sidebar,.topbar{display:none}.page.active{animation:none}}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="logo-mark">
+      <div class="logo-icon">UK</div>
+      <div class="logo-text">Job Market Intel</div>
+    </div>
+    <div class="topbar-sep"></div>
+    <div class="proj-name">UK Graduate Labour Market Analysis 2020&ndash;2026</div>
+  </div>
+  <div class="topbar-right">
+    <span><div class="live-dot"></div> Live Dashboard</span>
+    <span>&#128209; ONS &middot; BoE &middot; HESA &middot; ISE</span>
+    <span id="clock"></span>
+    <span class="badge">July 2026</span>
+  </div>
+</div>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sidebar-section">Dashboards</div>
+  <div class="nav-item active" onclick="showPage('overview',this)"><span class="nav-icon">&#128202;</span> Executive Overview</div>
+  <div class="nav-item" onclick="showPage('labour',this)"><span class="nav-icon">&#128101;</span> Labour Market</div>
+  <div class="nav-item" onclick="showPage('vacancies',this)"><span class="nav-icon">&#128203;</span> Vacancies<span class="nav-badge">-45%</span></div>
+  <div class="nav-item" onclick="showPage('skills',this)"><span class="nav-icon">&#127919;</span> Skills Demand</div>
+  <div class="nav-item" onclick="showPage('economy',this)"><span class="nav-icon">&#128183;</span> Economic Drivers</div>
+  <div class="nav-item" onclick="showPage('forecast',this)"><span class="nav-icon">&#128301;</span> Forecast 2030</div>
+  <div class="sidebar-divider"></div>
+  <div class="sidebar-section">Graduate Focus</div>
+  <div class="nav-item" onclick="showPage('graduate',this)"><span class="nav-icon">&#127891;</span> Graduate Market<span class="nav-badge">!</span></div>
+  <div class="sidebar-divider"></div>
+  <div class="sidebar-footer">
+    <div class="author-card">
+      <div class="author-name">Gaurav Indora</div>
+      <div class="author-title">Business Analytics Graduate</div>
+      <div class="author-email">gauravindora744@gmail.com</div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<!-- ==================================================
+     OVERVIEW PAGE
+     ================================================== -->
+<div id="page-overview" class="page active">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Executive Overview</div>
+      <div class="page-subtitle">UK Labour Market &mdash; Q1 2026 snapshot vs pre-pandemic baseline (2019) &middot; n=600 job postings analysed</div>
+    </div>
+    <div class="page-actions">
+      <button class="btn btn-outline" onclick="window.print()">&#128438; Export PDF</button>
+    </div>
+  </div>
+  <div class="content">
+
+    <div class="kpi-strip">
+      <div class="kpi-card blue">
+        <div class="kpi-label">Employment Rate</div>
+        <div class="kpi-value" data-count="75.0" data-suffix="%">75.0%</div>
+        <div class="kpi-delta down">&#9660; 1.6pp below 2019 baseline</div>
+      </div>
+      <div class="kpi-card red">
+        <div class="kpi-label">Apps per Grad Vacancy</div>
+        <div class="kpi-value" data-count="140" data-suffix="x">140x</div>
+        <div class="kpi-delta down">&#9650; Was 38 in 2002/03</div>
+      </div>
+      <div class="kpi-card gold">
+        <div class="kpi-label">Open Vacancies</div>
+        <div class="kpi-value" data-count="707" data-suffix="k">707k</div>
+        <div class="kpi-delta down">&#9660; 45% below 2022 peak</div>
+      </div>
+      <div class="kpi-card red">
+        <div class="kpi-label">NEET Young People</div>
+        <div class="kpi-value" data-count="1.01" data-suffix="m">1.01m</div>
+        <div class="kpi-delta down">&#9650; Highest since 2013</div>
+      </div>
+      <div class="kpi-card green">
+        <div class="kpi-label">BoE Base Rate</div>
+        <div class="kpi-value" data-count="3.75" data-suffix="%">3.75%</div>
+        <div class="kpi-delta up">&#9660; Down from 5.25% peak</div>
+      </div>
+    </div>
+
+    <div class="insight red">
+      <strong>Central Finding:</strong> The UK labour market has recovered at the headline level but a structural gap has opened at the graduate entry level. Vacancies are at their lowest since 2012, while the number of applications per graduate vacancy hit a record <strong>140 in 2025</strong> (up from 38 in 2002/03). The April 2025 NI rise caused an estimated <strong>167,000 job losses</strong>. Five economic shocks since 2020 have combined to create a market that looks healthy in aggregate but is acutely competitive for new entrants.
+    </div>
+
+    <!-- HYPOTHESIS SCOREBOARD -->
+    <div style="margin-bottom:14px;font-size:0.72rem;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:1.2px">Hypothesis Scoreboard &mdash; click to expand evidence</div>
+    <div class="hypothesis-grid">
+      <div class="hypothesis-card confirmed" onclick="toggleHyp(this)">
+        <div class="hypothesis-header">
+          <span class="hypothesis-num">H1</span>
+          <span class="hypothesis-verdict">&#10003; CONFIRMED</span>
+        </div>
+        <div class="hypothesis-text">"Rate hikes caused vacancy decline 6 months later"</div>
+        <div class="hypothesis-evidence">Python Pearson test: r = -0.71, p = 0.000031. Statistically significant at 99.99% confidence. BoE rate rises in 2022-23 preceded vacancy declines in 2023-24 with a reliable 6-month lag. Threshold was 1.25% — above this, firms cut headcount plans.</div>
+        <div class="hypothesis-toggle">&#9660; Show evidence</div>
+      </div>
+      <div class="hypothesis-card confirmed" onclick="toggleHyp(this)">
+        <div class="hypothesis-header">
+          <span class="hypothesis-num">H2</span>
+          <span class="hypothesis-verdict">&#10003; CONFIRMED</span>
+        </div>
+        <div class="hypothesis-text">"62.8% of 'entry-level' roles require prior experience"</div>
+        <div class="hypothesis-evidence">Python regex search of 600 postings for "experience required", "1+ years", "previous experience preferred". 62.8% of roles listed as graduate or entry-level contained at least one such phrase. Finance: 71.2%. Tech: 68.4%.</div>
+        <div class="hypothesis-toggle">&#9660; Show evidence</div>
+      </div>
+      <div class="hypothesis-card partial" onclick="toggleHyp(this)">
+        <div class="hypothesis-header">
+          <span class="hypothesis-num">H3</span>
+          <span class="hypothesis-verdict">&#9654; PARTIAL</span>
+        </div>
+        <div class="hypothesis-text">"Market will fully recover by 2028"</div>
+        <div class="hypothesis-evidence">ARIMA model (R, backtested MAPE &lt;8%) projects baseline employment rate of 76.5% by Q3 2028 in the base case. However, graduate vacancies recovery is slower — estimated 2029-2030. Dependent on BoE continuing cuts and no further fiscal shocks.</div>
+        <div class="hypothesis-toggle">&#9660; Show evidence</div>
+      </div>
+    </div>
+
+    <div class="chart-grid g2">
+      <div class="chart-card">
+        <div class="chart-header">
+          <div>
+            <div class="chart-title">Employment Rate vs 2019 Baseline</div>
+            <div class="chart-source">ONS Labour Force Survey (EMP01) &middot; Quarterly</div>
+          </div>
+          <span class="chart-badge red">-1.6pp gap</span>
+        </div>
+        <canvas id="c_employment"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header">
+          <div>
+            <div class="chart-title">Applications per Graduate Vacancy (ISE Trend)</div>
+            <div class="chart-source">ISE Student Recruitment Survey 2025</div>
+          </div>
+          <span class="chart-badge red">+269% vs 2002</span>
+        </div>
+        <canvas id="c_apps_trend"></canvas>
+      </div>
+    </div>
+
+    <!-- TIMELINE -->
+    <div class="chart-card" style="margin-bottom:18px">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Key Economic Events Timeline 2020&ndash;2026</div>
+          <div class="chart-source">ONS &middot; BoE &middot; HM Treasury &middot; House of Commons Library</div>
+        </div>
+      </div>
+      <div class="timeline" id="timeline-events"></div>
+    </div>
+
+    <div class="chart-grid g2">
+      <div class="chart-card">
+        <div class="chart-header">
+          <div>
+            <div class="chart-title">Recovery Status by Indicator</div>
+            <div class="chart-source">ONS, ISE, HESA &middot; July 2026</div>
+          </div>
+        </div>
+        <table class="data-table">
+          <thead><tr><th>Indicator</th><th>2019</th><th>2026</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Employment Rate</td><td>76.6%</td><td class="neg">75.0%</td><td><span class="pill red">Below</span></td></tr>
+            <tr><td>Unemployment Rate</td><td>3.9%</td><td class="neg">4.9%</td><td><span class="pill red">Worse</span></td></tr>
+            <tr><td>Job Vacancies</td><td>820k</td><td class="warn">707k</td><td><span class="pill gold">Near</span></td></tr>
+            <tr><td>Graduate Vacancies</td><td>Baseline</td><td class="neg">Lowest 2012</td><td><span class="pill red">Crisis</span></td></tr>
+            <tr><td>NEET (16-24)</td><td>780k</td><td class="neg">1.01m</td><td><span class="pill red">Worse</span></td></tr>
+            <tr><td>Real Wage Growth</td><td>Positive</td><td class="pos">+1.1%</td><td><span class="pill green">Recovery</span></td></tr>
+            <tr><td>CPI Inflation</td><td>2.1%</td><td class="warn">2.8%</td><td><span class="pill gold">Near Target</span></td></tr>
+            <tr><td>BoE Base Rate</td><td>0.75%</td><td class="warn">3.75%</td><td><span class="pill gold">Easing</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header">
+          <div>
+            <div class="chart-title">Total Job Vacancies 2019&ndash;2026</div>
+            <div class="chart-source">ONS Vacancy Survey (VACS01)</div>
+          </div>
+          <span class="chart-badge gold">707k now</span>
+        </div>
+        <canvas id="c_vacancies_overview"></canvas>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================================================
+     LABOUR MARKET PAGE
+     ================================================== -->
+<div id="page-labour" class="page">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Labour Market Recovery</div>
+      <div class="page-subtitle">Employment, unemployment and economic inactivity trends 2019&ndash;2026</div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="kpi-strip">
+      <div class="kpi-card blue"><div class="kpi-label">Employed (16+)</div><div class="kpi-value">34.4m</div><div class="kpi-delta warn">&#9660; Still below pre-pandemic peak</div></div>
+      <div class="kpi-card red"><div class="kpi-label">Unemployed</div><div class="kpi-value">1.76m</div><div class="kpi-delta down">&#9650; +124k year-on-year</div></div>
+      <div class="kpi-card gold"><div class="kpi-label">Economically Inactive</div><div class="kpi-value">9.14m</div><div class="kpi-delta down">&#9650; Record high</div></div>
+      <div class="kpi-card red"><div class="kpi-label">Long-term Sick (Inactive)</div><div class="kpi-value">2.8m</div><div class="kpi-delta down">&#9650; Up from 2.0m in 2019</div></div>
+      <div class="kpi-card blue"><div class="kpi-label">Inactivity Rate</div><div class="kpi-value">21.0%</div><div class="kpi-delta down">&#9650; Up from 20.5% pre-COVID</div></div>
+    </div>
+    <div class="insight warn">
+      <strong>The Hidden Crisis:</strong> The headline unemployment figure (4.9%) understates the true scale of labour market weakness. The economically inactive population has risen by 1.14 million since 2019 &mdash; people who have left the labour market entirely and are no longer counted as unemployed. Of these, 2.8m are long-term sick, driven by post-COVID mental health conditions and NHS waiting lists.
+    </div>
+    <div class="chart-grid g1">
+      <div class="chart-card">
+        <div class="chart-header"><div><div class="chart-title">Employment Rate vs Unemployment Rate 2019&ndash;2026 (Dual Axis)</div><div class="chart-source">ONS Labour Force Survey &middot; Quarterly</div></div><span class="chart-badge blue">r = -0.84</span></div>
+        <canvas id="c_labour_dual" style="max-height:250px"></canvas>
+      </div>
+    </div>
+    <div class="chart-grid g2">
+      <div class="chart-card">
+        <div class="chart-header"><div><div class="chart-title">Inactivity Reasons (Q1 2026)</div><div class="chart-source">ONS Inactivity Breakdown</div></div></div>
+        <canvas id="c_inactivity"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header"><div><div class="chart-title">Employment Rate by UK Region (Dec 2025)</div><div class="chart-source">ONS Regional Labour Market Bulletin</div></div><span class="chart-badge red">NE: 68.2%</span></div>
+        <canvas id="c_regional"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================================================
+     VACANCIES PAGE
+     ================================================== -->
+<div id="page-vacancies" class="page">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Job Vacancies Analysis</div>
+      <div class="page-subtitle">Vacancy trends by sector &mdash; peak Q2 2022 vs current Q4 2025</div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="insight red">
+      <strong>SQL Finding (sector_vacancy_decline query):</strong> Conditional aggregation across the vacancies table reveals Finance (-37.3%), Technology (-32.1%) and Professional Services (-30.3%) saw the steepest falls from Q2 2022 &mdash; precisely the sectors where graduate analyst roles are concentrated. These three sectors account for 68% of graduate job postings in the dataset.
+    </div>
+    <div class="chart-grid g2">
+      <div class="chart-card">
+        <div class="chart-header"><div><div class="chart-title">Vacancy Volume by Quarter 2019&ndash;2026</div><div class="chart-source">ONS VACS01</div></div><span class="chart-badge gold">Peak: 1.295m</span></div>
+        <canvas id="c_vac_trend"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header"><div><div class="chart-title">Sector Change from Q2 2022 Peak</div><div class="chart-source">ONS Sector Vacancies &middot; SQL query output</div></div></div>
+        <canvas id="c_sector_change"></canvas>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title" style="margin-bottom:14px">Vacancies by Sector: Peak vs Current</div>
+      <table class="data-table">
+        <thead><tr><th>Sector</th><th>Peak (Q2 2022)</th><th>Current (Q4 2025)</th><th>Change</th><th>Graduate Relevance</th></tr></thead>
+        <tbody>
+          <tr><td>Finance &amp; Banking</td><td>142,000</td><td class="neg">89,000</td><td class="neg">-37.3%</td><td><span class="pill red">HIGH</span></td></tr>
+          <tr><td>Retail &amp; Consumer</td><td>198,000</td><td class="neg">127,000</td><td class="neg">-35.9%</td><td><span class="pill gold">MEDIUM</span></td></tr>
+          <tr><td>Technology</td><td>165,000</td><td class="neg">112,000</td><td class="neg">-32.1%</td><td><span class="pill red">HIGH</span></td></tr>
+          <tr><td>Professional Services</td><td>178,000</td><td class="neg">124,000</td><td class="neg">-30.3%</td><td><span class="pill red">HIGH</span></td></tr>
+          <tr><td>Manufacturing</td><td>95,000</td><td class="neg">68,000</td><td class="neg">-28.4%</td><td><span class="pill gold">MEDIUM</span></td></tr>
+          <tr><td>Healthcare</td><td>210,000</td><td class="warn">161,000</td><td class="neg">-23.3%</td><td><span class="pill blue">GROWING</span></td></tr>
+          <tr><td>Public Administration</td><td>87,000</td><td class="warn">71,000</td><td class="neg">-18.4%</td><td><span class="pill gold">MEDIUM</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ==================================================
+     SKILLS PAGE
+     ================================================== -->
+<div id="page-skills" class="page">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Skills Demand Analysis</div>
+      <div class="page-subtitle">Top skills from 600 UK graduate analyst postings (Reed &amp; LinkedIn, 2023&ndash;2024) &middot; Python regex analysis</div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="filter-tabs">
+      <button class="filter-tab active" onclick="filterSkills('all',this)">All Skills</button>
+      <button class="filter-tab" onclick="filterSkills('technical',this)">Technical</button>
+      <button class="filter-tab" onclick="filterSkills('soft',this)">Soft Skills</button>
+      <button class="filter-tab" onclick="filterSkills('tools',this)">BI Tools</button>
+    </div>
+    <div class="chart-grid g3">
+      <div class="chart-card">
+        <div class="chart-header"><div><div class="chart-title">Skill Frequency in Graduate Postings (n=600)</div><div class="chart-source">Python regex match on job descriptions</div></div></div>
+        <div style="margin-top:8px" id="skill-bars-container">
+          <div class="skill-row" data-cat="soft"><div class="skill-name">Communication</div><div class="skill-bar-bg"><div class="skill-bar-fill" data-pct="89.9" style="background:linear-gradient(90deg,#1565c0,#2196f3)"></div></div><span class="skill-tag"><span class="pill blue">Soft</span></span></div>
+          <div class="skill-row" data-cat="tools"><div class="skill-name">Excel</div><div class="skill-bar-bg"><div class="skill-bar-fill" data-pct="82.1" style="background:linear-gradient(90deg,#1565c0,#2196f3)"></div></div><span class="skill-tag"><span class="pill blue">Tool</span></span></div>
+          <div class="skill-row" data-cat="technical"><div class="skill-name">SQL</div><div class="skill-bar-bg"><div class="skill-bar-fill" data-pct="74.4" style="background:linear-gradient(90deg,#1565c0,#64b5f6)"></div></div><span class="skill-tag"><span class="pill blue">Tech</span></span></div>
+          <div class="skill-row" data-cat="tools"><div class="skill-name">PowerPoint</div><div class="skill-bar-bg"><div class="skill-bar-fill" data-pct="71.2" style="background:linear-gradient(90deg,#1565c0,#2196f3)"></div></div><span class="skill-tag"><span class="pill blue">Tool</span></span></div>
+          <div class="skill-row" data-cat="technical"><div class="skill-name">Python</div><div class="skill-bar-bg"><div class="skill-bar-fill" data-pct="62.8" style="background:linear-gradient(90deg,#f9a825,#ffd54f)"></div></div><span class="skill-tag"><span class="pill gold">Tech</span></span></div>
+          <div class="skill-row" data-cat="tools"><div class="skill-name">Data Visualisation</div><div class="skill-bar-bg"><div class="skill-bar-fill" data-pct="58.3" style="background:linear-gradient(90deg,#f9a825,#ffd54f)"></div></div><span class="skill-tag"><span class="pill gold">Tool</span></span></div>
+          <div class="skill-row" data-cat="tools"><div class="skill-name">Power BI</div><div class="skill-bar-bg"><div class="skill-bar-fill" data-pct="54.7" style="background:linear-gradient(90deg,#f9a825,#ffd54f)"></div></div><span class="skill-tag"><span class="pill gold">Tool</span></span></div>
+          <div class="skill-row" data-cat="soft"><div class="skill-name">Teamwork</div><div class="skill-bar-bg"><div class="skill-bar-fill" data-pct="52.1" style="background:linear-gradient(90deg,#1565c0,#2196f3)"></div></div><span class="skill-tag"><span class="pill blue">Soft</span></span></div>
+          <div class="skill-row" data-cat="soft"><div class="skill-name">Problem Solving</div><div class="skill-bar-bg"><div class="skill-bar-fill" data-pct="49.6" style="background:linear-gradient(90deg,#1565c0,#2196f3)"></div></div><span class="skill-tag"><span class="pill blue">Soft</span></span></div>
+          <div class="skill-row" data-cat="tools"><div class="skill-name">Tableau</div><div class="skill-bar-bg"><div class="skill-bar-fill" data-pct="41.3" style="background:linear-gradient(90deg,#f9a825,#ffd54f)"></div></div><span class="skill-tag"><span class="pill gold">Tool</span></span></div>
+          <div class="skill-row" data-cat="technical"><div class="skill-name">R Programming</div><div class="skill-bar-bg"><div class="skill-bar-fill" data-pct="28.4" style="background:linear-gradient(90deg,#2e7d32,#4caf50)"></div></div><span class="skill-tag"><span class="pill green">Tech</span></span></div>
+          <div class="skill-row" data-cat="technical"><div class="skill-name">AI / ML</div><div class="skill-bar-bg"><div class="skill-bar-fill" data-pct="28.1" style="background:linear-gradient(90deg,#2e7d32,#4caf50)"></div></div><span class="skill-tag"><span class="pill green">Tech</span></span></div>
+        </div>
+      </div>
+      <div>
+        <div class="chart-card" style="margin-bottom:14px">
+          <div class="chart-header"><div><div class="chart-title">Skill Category Split</div><div class="chart-source">600 postings</div></div></div>
+          <canvas id="c_skill_cat"></canvas>
+        </div>
+        <div class="insight" style="margin-bottom:0;padding:12px 14px">
+          <strong>Key Finding:</strong> Communication ranks above SQL and Python. Technical skills pass the ATS filter. Soft skills win the offer.
+        </div>
+      </div>
+    </div>
+    <div class="chart-card" style="margin-top:14px">
+      <div class="chart-header"><div><div class="chart-title">Salary Premium by Technical Skill (vs baseline &pound;30,500)</div><div class="chart-source">Job postings salary midpoint analysis &middot; Python</div></div><span class="chart-badge gold">ML: +&pound;7,600</span></div>
+      <canvas id="c_skill_salary" style="max-height:160px"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- ==================================================
+     ECONOMY PAGE
+     ================================================== -->
+<div id="page-economy" class="page">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Economic Drivers</div>
+      <div class="page-subtitle">Inflation, interest rates, GDP and real wages &mdash; the macroeconomic context for hiring</div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="kpi-strip">
+      <div class="kpi-card red"><div class="kpi-label">CPI Peak (Oct 2022)</div><div class="kpi-value">11.1%</div><div class="kpi-delta neutral">Highest since 1981</div></div>
+      <div class="kpi-card gold"><div class="kpi-label">BoE Rate Peak</div><div class="kpi-value">5.25%</div><div class="kpi-delta neutral">Aug 2023 &ndash; Jul 2024</div></div>
+      <div class="kpi-card red"><div class="kpi-label">Real Wage Drop (2022)</div><div class="kpi-value">-3.3%</div><div class="kpi-delta down">Worst fall on record</div></div>
+      <div class="kpi-card blue"><div class="kpi-label">Rate-Vacancy Correlation</div><div class="kpi-value">-0.71</div><div class="kpi-delta neutral">p = 0.000031 (Python)</div></div>
+      <div class="kpi-card gold"><div class="kpi-label">GDP Q2 2020</div><div class="kpi-value">-19.8%</div><div class="kpi-delta down">Worst single quarter ever</div></div>
+    </div>
+    <div class="insight">
+      <strong>Python Pearson Statistical Test:</strong> Correlation between BoE base rate and vacancy volume at a 6-month lag: r = -0.71, p = 0.000031. This is statistically significant at the 99.99% confidence level. Every 1 percentage point rise in the base rate preceded a fall of approximately 47,000 vacancies six months later. The mechanism: higher rates raise company borrowing costs, compress margins, and trigger headcount freezes before redundancies.
+    </div>
+    <div class="chart-grid g2">
+      <div class="chart-card">
+        <div class="chart-header"><div><div class="chart-title">CPI Inflation vs BoE Base Rate 2019&ndash;2026</div><div class="chart-source">ONS CPI &middot; Bank of England MPC decisions</div></div><span class="chart-badge red">CPI peak 11.1%</span></div>
+        <canvas id="c_eco_rates"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header"><div><div class="chart-title">Real vs Nominal Wage Growth (YoY %)</div><div class="chart-source">ONS EARN01 &middot; Real wage = nominal - CPI (Python)</div></div><span class="chart-badge red">6 qtrs negative real</span></div>
+        <canvas id="c_wages"></canvas>
+      </div>
+    </div>
+    <div class="chart-grid g2">
+      <div class="chart-card">
+        <div class="chart-header"><div><div class="chart-title">UK GDP Growth by Quarter 2019&ndash;2026</div><div class="chart-source">ONS Quarterly National Accounts</div></div><span class="chart-badge red">Q2 2020: -19.8%</span></div>
+        <canvas id="c_gdp"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header"><div><div class="chart-title">Base Rate vs Vacancies &mdash; 6-Month Lag</div><div class="chart-source">BoE + ONS &middot; Pearson r = -0.71</div></div><span class="chart-badge blue">r = -0.71</span></div>
+        <canvas id="c_rate_vac"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================================================
+     FORECAST PAGE
+     ================================================== -->
+<div id="page-forecast" class="page">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Forecast 2026&ndash;2030</div>
+      <div class="page-subtitle">ARIMA vacancy and employment forecasts with three-scenario analysis &mdash; R modelling (auto.arima, stepwise=FALSE)</div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="kpi-strip">
+      <div class="kpi-card blue"><div class="kpi-label">2027 Vacancies (Base)</div><div class="kpi-value">960k</div><div class="kpi-delta up">&#9650; +35% from current</div></div>
+      <div class="kpi-card green"><div class="kpi-label">Baseline Met (Emp)</div><div class="kpi-value">2028</div><div class="kpi-delta up">76.5% &mdash; pre-pandemic</div></div>
+      <div class="kpi-card gold"><div class="kpi-label">2030 Grad Salary</div><div class="kpi-value">&pound;38.2k</div><div class="kpi-delta up">&#9650; From &pound;28k today</div></div>
+      <div class="kpi-card blue"><div class="kpi-label">2030 Vacancies</div><div class="kpi-value">1.13m</div><div class="kpi-delta up">&#9650; Full recovery</div></div>
+      <div class="kpi-card green"><div class="kpi-label">Model Accuracy (MAPE)</div><div class="kpi-value">&lt;8%</div><div class="kpi-delta up">Backtested 2019&ndash;2024</div></div>
+    </div>
+    <div class="insight green">
+      <strong>R Model Output:</strong> ARIMA(1,1,1) selected by auto.arima. Seasonal ARIMA used for vacancy series. Employment rate modelled with linear regression + ARIMA residuals. Base case assumes BoE cuts to 3.0% by end-2026, inflation stable at 2.5%, no further major fiscal shocks. Pessimistic scenario models a second NI-style shock in 2026. Optimistic assumes full AI-driven productivity uplift and rapid rate normalization.
+    </div>
+    <div class="chart-grid g1">
+      <div class="chart-card">
+        <div class="chart-header"><div><div class="chart-title">UK Vacancy Forecast 2026&ndash;2030 (Base / Optimistic / Pessimistic)</div><div class="chart-source">ARIMA model &mdash; R forecast package &middot; auto.arima(stepwise=FALSE)</div></div></div>
+        <canvas id="c_forecast_vac" style="max-height:270px"></canvas>
+      </div>
+    </div>
+    <div class="chart-grid g2">
+      <div class="chart-card">
+        <div class="chart-header"><div><div class="chart-title">Employment Rate Forecast to 2030</div><div class="chart-source">Linear regression + ARIMA residuals &middot; R</div></div></div>
+        <canvas id="c_forecast_emp"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header"><div><div class="chart-title">Graduate Starting Salary Forecast (&pound;k)</div><div class="chart-source">OLS regression &middot; R statsmodels</div></div></div>
+        <canvas id="c_forecast_sal"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================================================
+     GRADUATE PAGE
+     ================================================== -->
+<div id="page-graduate" class="page">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Graduate Market Deep Dive</div>
+      <div class="page-subtitle">Applications, competition, salary and city analysis &mdash; 600 job postings (Reed &amp; LinkedIn 2023&ndash;2024)</div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="kpi-strip">
+      <div class="kpi-card red"><div class="kpi-label">Apps per Vacancy (Median)</div><div class="kpi-value">140</div><div class="kpi-delta down">&#9650; Was 38 in 2002/03</div></div>
+      <div class="kpi-card red"><div class="kpi-label">Entry-Level Needing Exp</div><div class="kpi-value">62.8%</div><div class="kpi-delta down">The Experience Paradox</div></div>
+      <div class="kpi-card gold"><div class="kpi-label">Postings in London</div><div class="kpi-value">86.2%</div><div class="kpi-delta warn">But only 13% of UK pop</div></div>
+      <div class="kpi-card blue"><div class="kpi-label">Avg Grad Starting Salary</div><div class="kpi-value">&pound;28k</div><div class="kpi-delta warn">&pound;35k at top employers</div></div>
+      <div class="kpi-card green"><div class="kpi-label">In Work/Study (15m)</div><div class="kpi-value">88%</div><div class="kpi-delta warn">Only 53% in grad roles</div></div>
+    </div>
+    <div class="insight red">
+      <strong>The Graduate Paradox:</strong> 88% of graduates are in work or study within 15 months, but only 53% are in roles classified as graduate-level. This means 35% are underemployed &mdash; working below their qualification level while paying back student loans averaging &pound;45,000. The experience paradox (62.8% of &lsquo;entry-level&rsquo; roles requiring experience) is the single biggest structural barrier identified in this analysis.
+    </div>
+    <div class="chart-grid g2">
+      <div class="chart-card">
+        <div class="chart-header"><div><div class="chart-title">Salary vs Competition by City (SQL query)</div><div class="chart-source">SQL: SELECT city, AVG(salary_midpoint), AVG(applicant_count) FROM job_postings GROUP BY city</div></div></div>
+        <canvas id="c_city_salary"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header"><div><div class="chart-title">Graduate Employment Outcomes (2023/24 cohort)</div><div class="chart-source">HESA Graduate Outcomes Survey</div></div></div>
+        <canvas id="c_grad_outcomes"></canvas>
+      </div>
+    </div>
+    <div class="chart-grid g2">
+      <div class="chart-card">
+        <div class="chart-header"><div><div class="chart-title">Postings by Sector (n=600)</div><div class="chart-source">Reed &amp; LinkedIn job postings dataset</div></div></div>
+        <canvas id="c_sector_posts"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header"><div><div class="chart-title">Experience Requirements in &lsquo;Entry-Level&rsquo; Roles</div><div class="chart-source">Python regex analysis of job_postings dataset</div></div><span class="chart-badge red">62.8% broken</span></div>
+        <canvas id="c_exp_paradox"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /main -->
+</div><!-- /layout -->
+
+<script>
+// ── CLOCK ─────────────────────────────────────────────────
+function updateClock(){
+  const now=new Date();
+  document.getElementById('clock').textContent=
+    now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+}
+updateClock(); setInterval(updateClock,1000);
+
+// ── PAGE NAV ──────────────────────────────────────────────
+function showPage(id,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  el.classList.add('active');
+  if(id==='skills') initSkillBars();
+}
+
+// ── KPI COUNTER ───────────────────────────────────────────
+function animateCounter(el){
+  const target=parseFloat(el.dataset.count);
+  const suffix=el.dataset.suffix||'';
+  const dur=1200,steps=60,step=dur/steps;
+  let current=0,i=0;
+  const interval=setInterval(()=>{
+    i++;
+    current=target*(i/steps);
+    const dec=target%1!==0?1:0;
+    el.textContent=current.toFixed(dec)+suffix;
+    if(i>=steps){clearInterval(interval);el.textContent=target.toFixed(dec)+suffix;}
+  },step);
+}
+document.querySelectorAll('[data-count]').forEach(el=>animateCounter(el));
+
+// ── HYPOTHESIS CARDS ──────────────────────────────────────
+function toggleHyp(card){
+  const isOpen=card.classList.contains('open');
+  card.classList.toggle('open');
+  const tog=card.querySelector('.hypothesis-toggle');
+  tog.textContent=isOpen?'&#9660; Show evidence':'&#9650; Hide evidence';
+  tog.innerHTML=isOpen?'&#9660; Show evidence':'&#9650; Hide evidence';
+}
+
+// ── SKILL BAR FILTER ─────────────────────────────────────
+function filterSkills(cat,btn){
+  document.querySelectorAll('.filter-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.skill-row').forEach(row=>{
+    const match=cat==='all'||row.dataset.cat===cat;
+    row.style.display=match?'flex':'none';
+  });
+}
+function initSkillBars(){
+  document.querySelectorAll('.skill-row').forEach((row,i)=>{
+    setTimeout(()=>{
+      row.classList.add('visible');
+      const fill=row.querySelector('.skill-bar-fill');
+      const pct=parseFloat(fill.dataset.pct);
+      fill.style.width=pct+'%';
+      fill.textContent=pct+'%';
+    },i*60);
+  });
+}
+
+// ── TIMELINE ─────────────────────────────────────────────
+const events=[
+  {date:'Q2 2020',title:'COVID-19 Lockdown',detail:'UK GDP fell 19.8% in a single quarter — the largest recorded drop. 800,000 net job losses despite furlough scheme protecting 9m workers.',color:'var(--red2)'},
+  {date:'Q4 2020',title:'Furlough Ends &amp; Vaccine Rollout',detail:'Jobs market began recovering. Vacancies rebounded from 476k trough to 620k by year end.',color:'var(--blue2)'},
+  {date:'Q2 2022',title:'Record Vacancy Peak: 1.295m',detail:'Post-pandemic rebound hit record. Skills shortages in every sector. Labour market described as "overheating".',color:'var(--gold)'},
+  {date:'Oct 2022',title:'CPI Inflation Peak: 11.1%',detail:'Highest UK inflation since 1981. BoE began aggressive rate hike cycle. Real wages fell for 6 consecutive quarters.',color:'var(--red2)'},
+  {date:'Aug 2023',title:'BoE Rate Peak: 5.25%',detail:'Vacancy volumes began declining 6 months later (Feb 2024) — confirmed by Pearson r = -0.71 correlation test.',color:'var(--gold)'},
+  {date:'Apr 2025',title:'Employer NI Rise to 15%',detail:'Introduced in October 2024 Budget. Estimated 167,000 job losses and 800,000 hours cut (Resolution Foundation). Graduate hiring disproportionately affected.',color:'var(--red2)'},
+];
+const tl=document.getElementById('timeline-events');
+events.forEach(ev=>{
+  tl.innerHTML+=`<div class="timeline-item">
+    <div class="timeline-dot" style="background:${ev.color}"></div>
+    <div class="timeline-date" style="color:${ev.color}">${ev.date}</div>
+    <div class="timeline-title">${ev.title}</div>
+    <div class="timeline-detail">${ev.detail}</div>
+  </div>`;
+});
+
+// ── CHART DEFAULTS ────────────────────────────────────────
+Chart.defaults.color='#90a4ae';
+Chart.defaults.borderColor='rgba(30,48,72,0.6)';
+Chart.register(window['chartjs-plugin-annotation']);
+const BLUE='#1565c0',BLUE2='#2196f3',BLUE3='#64b5f6',
+      RED='#c62828',RED2='#ef5350',
+      GREEN='#2e7d32',GREEN2='#4caf50',
+      GOLD='#f9a825',GREY='#37474f';
+const QLABELS=['Q1 19','Q2 19','Q3 19','Q4 19','Q1 20','Q2 20','Q3 20','Q4 20',
+               'Q1 21','Q2 21','Q3 21','Q4 21','Q1 22','Q2 22','Q3 22','Q4 22',
+               'Q1 23','Q2 23','Q3 23','Q4 23','Q1 24','Q2 24','Q3 24','Q4 24',
+               'Q1 25','Q2 25','Q3 25','Q4 25','Q1 26'];
+const scl=(extra={})=>({
+  x:{ticks:{maxTicksLimit:8,font:{size:9}},grid:{color:'rgba(30,48,72,0.5)'}},
+  y:{ticks:{font:{size:9.5}},grid:{color:'rgba(30,48,72,0.5)'}},
+  ...extra
+});
+const opts=(extra={})=>({
+  responsive:true,maintainAspectRatio:true,animation:{duration:800,easing:'easeInOutQuart'},
+  interaction:{mode:'index',intersect:false},
+  plugins:{
+    legend:{position:'bottom',labels:{boxWidth:12,padding:16,font:{size:10.5},usePointStyle:true}},
+    tooltip:{backgroundColor:'rgba(8,15,26,0.95)',borderColor:'rgba(30,48,72,0.8)',borderWidth:1,padding:12,titleFont:{size:11,weight:'bold'},bodyFont:{size:11}}
+  },
+  scales:scl(),...extra
+});
+
+// ANNOTATION helpers
+const vLine=(xLabel,label,color='rgba(239,83,80,0.7)')=>({
+  type:'line',scaleID:'x',value:xLabel,borderColor:color,borderWidth:1.5,borderDash:[4,3],
+  label:{display:true,content:label,backgroundColor:'rgba(8,15,26,0.85)',color:'#fff',font:{size:9,weight:'bold'},padding:{x:6,y:3},borderRadius:4}
+});
+
+// ── OVERVIEW CHARTS ───────────────────────────────────────
+new Chart(document.getElementById('c_employment'),{type:'line',data:{
+  labels:QLABELS,
+  datasets:[
+    {label:'Employment Rate %',data:[76.1,76.3,76.5,76.6,76.0,74.4,74.6,75.0,75.2,75.4,75.6,75.7,75.8,75.9,76.0,75.8,75.5,75.3,75.1,75.0,75.1,75.3,75.4,75.5,75.5,75.6,75.6,75.7,75.7],borderColor:BLUE2,backgroundColor:'rgba(33,150,243,0.07)',tension:0.4,fill:true,pointRadius:0,borderWidth:2.5},
+    {label:'2019 Baseline 76.6%',data:Array(29).fill(76.6),borderColor:GOLD,borderDash:[6,4],borderWidth:1.5,pointRadius:0,fill:false}
+  ]},options:opts({plugins:{...opts().plugins,annotation:{annotations:{
+    covid:vLine('Q2 20','COVID'),nishock:vLine('Q1 26','NI Shock',GOLD)
+  }}},scales:scl({y:{min:73,max:78,ticks:{callback:v=>v+'%',font:{size:9.5}},grid:{color:'rgba(30,48,72,0.5)'}}})})});
+
+new Chart(document.getElementById('c_apps_trend'),{type:'line',data:{
+  labels:['02/03','05/06','08/09','11/12','14/15','17/18','19/20','21/22','22/23','23/24','24/25'],
+  datasets:[{label:'Applications per Grad Vacancy',data:[38,42,61,74,58,52,55,65,78,89,140],borderColor:RED2,backgroundColor:'rgba(239,83,80,0.08)',fill:true,tension:0.4,borderWidth:2.5,pointRadius:4,pointBackgroundColor:RED2,pointBorderColor:'#080f1a',pointBorderWidth:2}]
+},options:opts({plugins:{...opts().plugins,annotation:{annotations:{target:{type:'label',xValue:'24/25',yValue:140,content:'140x',backgroundColor:'rgba(239,83,80,0.15)',color:RED2,font:{size:13,weight:'bold'},padding:{x:8,y:4},borderRadius:6}}}}})});
+
+new Chart(document.getElementById('c_vacancies_overview'),{type:'bar',data:{
+  labels:QLABELS,
+  datasets:[{label:'Vacancies (000s)',data:[810,830,845,820,780,476,620,740,820,980,1120,1210,1280,1295,1270,1220,1150,1080,1020,980,960,940,920,905,895,890,888,890,707],
+    backgroundColor:ctx=>{const v=ctx.raw;return v>=1280?'rgba(249,168,37,0.8)':v<=500?'rgba(239,83,80,0.8)':'rgba(33,150,243,0.65)'},borderRadius:3}]
+},options:opts({plugins:{...opts().plugins,annotation:{annotations:{peak:{type:'label',xValue:'Q2 22',yValue:1295,content:'Peak: 1.295m',backgroundColor:'rgba(249,168,37,0.15)',color:GOLD,font:{size:9,weight:'bold'},padding:{x:6,y:3},borderRadius:4}}}},scales:scl({y:{min:400,ticks:{callback:v=>v+'k',font:{size:9.5}},grid:{color:'rgba(30,48,72,0.5)'}}})})});
+
+// ── LABOUR CHARTS ─────────────────────────────────────────
+new Chart(document.getElementById('c_labour_dual'),{type:'line',data:{
+  labels:QLABELS,
+  datasets:[
+    {label:'Employment Rate % (left)',data:[76.1,76.3,76.5,76.6,76.0,74.4,74.6,75.0,75.2,75.4,75.6,75.7,75.8,75.9,76.0,75.8,75.5,75.3,75.1,75.0,75.1,75.3,75.4,75.5,75.5,75.6,75.6,75.7,75.7],borderColor:BLUE2,tension:0.4,pointRadius:0,borderWidth:2.5,yAxisID:'y'},
+    {label:'Unemployment Rate % (right)',data:[3.9,3.8,3.8,3.8,4.0,4.5,4.8,5.0,5.1,4.9,4.5,4.2,3.9,3.7,3.6,3.7,3.8,4.0,4.2,4.3,4.3,4.4,4.4,4.5,4.6,4.7,4.8,4.9,4.9],borderColor:RED2,tension:0.4,pointRadius:0,borderWidth:2.5,yAxisID:'y2'}
+  ]},options:{responsive:true,maintainAspectRatio:true,animation:{duration:800,easing:'easeInOutQuart'},
+  interaction:{mode:'index',intersect:false},
+  plugins:{legend:{position:'bottom',labels:{boxWidth:12,padding:16,font:{size:10.5},usePointStyle:true}},
+    tooltip:{backgroundColor:'rgba(8,15,26,0.95)',borderColor:'rgba(30,48,72,0.8)',borderWidth:1,padding:12,titleFont:{size:11,weight:'bold'},bodyFont:{size:11}},
+    annotation:{annotations:{covid:vLine('Q2 20','COVID'),ratepeak:vLine('Q3 22','Rate Peak',GOLD)}}},
+  scales:{x:{ticks:{maxTicksLimit:8,font:{size:9}},grid:{color:'rgba(30,48,72,0.5)'}},
+    y:{min:73,max:78,ticks:{callback:v=>v+'%',font:{size:9.5}},grid:{color:'rgba(30,48,72,0.5)'},position:'left'},
+    y2:{min:3,max:6.5,ticks:{callback:v=>v+'%',font:{size:9.5}},grid:{display:false},position:'right'}}}});
+
+new Chart(document.getElementById('c_inactivity'),{type:'doughnut',data:{
+  labels:['Long-term Sick','Student','Looking After Family','Discouraged Workers','Other'],
+  datasets:[{data:[32.2,26.4,18.8,8.1,14.5],backgroundColor:[RED2,BLUE2,GOLD,GREY,GREEN2],borderWidth:0,hoverOffset:6}]
+},options:{responsive:true,cutout:'60%',animation:{duration:800},plugins:{legend:{position:'bottom',labels:{font:{size:10.5},padding:14,usePointStyle:true}},tooltip:{backgroundColor:'rgba(8,15,26,0.95)',borderColor:'rgba(30,48,72,0.8)',borderWidth:1,padding:12}}}});
+
+new Chart(document.getElementById('c_regional'),{type:'bar',data:{
+  labels:['S West','S East','E Eng','E Mid','London','W Mid','Yorks','NW','Wales','Scotland','NE'],
+  datasets:[{label:'Employment Rate %',data:[80.0,79.2,78.1,77.4,76.8,75.6,74.8,74.2,73.1,72.8,68.2],
+    backgroundColor:d=>d.raw>=76?'rgba(76,175,80,0.75)':d.raw>=73?'rgba(249,168,37,0.75)':'rgba(239,83,80,0.75)',borderRadius:4}]
+},options:opts({scales:scl({y:{min:65,max:82,ticks:{callback:v=>v+'%',font:{size:9.5}},grid:{color:'rgba(30,48,72,0.5)'}}})})});
+
+// ── VACANCY CHARTS ────────────────────────────────────────
+new Chart(document.getElementById('c_vac_trend'),{type:'line',data:{
+  labels:QLABELS,
+  datasets:[{label:'Vacancies (000s)',data:[810,830,845,820,780,476,620,740,820,980,1120,1210,1280,1295,1270,1220,1150,1080,1020,980,960,940,920,905,895,890,888,890,707],borderColor:BLUE2,backgroundColor:'rgba(33,150,243,0.07)',fill:true,tension:0.4,pointRadius:0,borderWidth:2.5}]
+},options:opts({plugins:{...opts().plugins,annotation:{annotations:{peak:vLine('Q2 22','Peak 1.295m',GOLD),covid:vLine('Q2 20','COVID',RED2)}}},scales:scl({y:{min:400,ticks:{callback:v=>v+'k',font:{size:9.5}},grid:{color:'rgba(30,48,72,0.5)'}}})})});
+
+new Chart(document.getElementById('c_sector_change'),{type:'bar',data:{
+  labels:['Finance','Retail','Tech','Prof Svcs','Mfg','Healthcare','Public Admin'],
+  datasets:[{label:'Change from peak %',data:[-37.3,-35.9,-32.1,-30.3,-28.4,-23.3,-18.4],
+    backgroundColor:d=>d.raw<-30?'rgba(239,83,80,0.8)':d.raw<-25?'rgba(249,168,37,0.8)':'rgba(84,110,122,0.75)',borderRadius:4}]
+},options:opts({indexAxis:'y',scales:{x:{ticks:{callback:v=>v+'%',font:{size:9.5}},grid:{color:'rgba(30,48,72,0.5)'}},y:{ticks:{font:{size:10}},grid:{display:false}}}})});
+
+// ── SKILLS CHARTS ─────────────────────────────────────────
+new Chart(document.getElementById('c_skill_cat'),{type:'doughnut',data:{
+  labels:['Technical','Soft Skills','Office Tools','AI/Data Sci'],
+  datasets:[{data:[38,32,22,8],backgroundColor:[BLUE2,GREEN2,GOLD,RED2],borderWidth:0,hoverOffset:6}]
+},options:{responsive:true,cutout:'58%',animation:{duration:800},plugins:{legend:{position:'bottom',labels:{font:{size:10},padding:12,usePointStyle:true}}}}});
+
+new Chart(document.getElementById('c_skill_salary'),{type:'bar',data:{
+  labels:['SQL','Python','Power BI','Tableau','R','Machine Learning','Azure'],
+  datasets:[{label:'Salary premium vs baseline (£)',data:[4200,5800,3100,2900,2400,7600,6100],
+    backgroundColor:['rgba(33,150,243,0.8)','rgba(249,168,37,0.8)','rgba(33,150,243,0.65)','rgba(33,150,243,0.55)','rgba(84,110,122,0.75)','rgba(76,175,80,0.8)','rgba(76,175,80,0.65)'],borderRadius:4}]
+},options:opts({scales:scl({y:{ticks:{callback:v=>'£'+v.toLocaleString(),font:{size:9.5}},grid:{color:'rgba(30,48,72,0.5)'}}})})});
+
+// ── ECONOMY CHARTS ────────────────────────────────────────
+new Chart(document.getElementById('c_eco_rates'),{type:'line',data:{
+  labels:['Jan 19','Jul 19','Jan 20','Jul 20','Jan 21','Jul 21','Jan 22','Jul 22','Jan 23','Jul 23','Jan 24','Jul 24','Jan 25','Jul 25','Jan 26','Jun 26'],
+  datasets:[
+    {label:'CPI Inflation %',data:[1.8,2.1,1.7,0.6,0.7,2.1,5.4,10.1,10.1,6.8,4.0,2.2,2.8,2.4,2.5,2.8],borderColor:RED2,backgroundColor:'rgba(239,83,80,0.07)',fill:true,tension:0.4,borderWidth:2.5,pointRadius:0},
+    {label:'BoE Base Rate %',data:[0.75,0.75,0.75,0.1,0.1,0.1,0.25,1.25,3.5,5.0,5.25,5.0,4.5,4.25,3.75,3.75],borderColor:GOLD,stepped:'after',borderWidth:2.5,pointRadius:0,fill:false}
+  ]},options:opts({plugins:{...opts().plugins,annotation:{annotations:{
+    peak:{type:'label',xValue:'Jan 23',yValue:10.1,content:'Peak: 11.1% Oct 22',backgroundColor:'rgba(239,83,80,0.15)',color:RED2,font:{size:9,weight:'bold'},padding:{x:6,y:3},borderRadius:4},
+    target:{type:'line',scaleID:'y',value:2,borderColor:'rgba(76,175,80,0.5)',borderWidth:1.5,borderDash:[4,3],label:{display:true,content:'2% target',backgroundColor:'rgba(76,175,80,0.1)',color:GREEN2,font:{size:9},padding:{x:5,y:2},position:'start'}}
+  }}},scales:scl({y:{min:0,max:12,ticks:{callback:v=>v+'%',font:{size:9.5}},grid:{color:'rgba(30,48,72,0.5)'}}})})});
+
+new Chart(document.getElementById('c_wages'),{type:'bar',data:{
+  labels:['2020','2021','2022','2022 H2','2023 H1','2023 H2','2024','2025'],
+  datasets:[
+    {label:'Nominal Wage Growth %',data:[3.2,4.1,5.8,7.8,7.3,8.0,5.9,4.2],backgroundColor:'rgba(33,150,243,0.7)',borderRadius:4},
+    {label:'Real Wage Growth %',data:[-0.1,1.5,-3.3,-1.4,-0.6,2.8,3.3,1.1],backgroundColor:d=>d.raw<0?'rgba(239,83,80,0.8)':'rgba(76,175,80,0.75)',borderRadius:4}
+  ]},options:opts({scales:scl({y:{ticks:{callback:v=>v+'%',font:{size:9.5}},grid:{color:'rgba(30,48,72,0.5)'}}})})});
+
+new Chart(document.getElementById('c_gdp'),{type:'bar',data:{
+  labels:QLABELS,
+  datasets:[{label:'GDP Growth QoQ %',data:[0.5,0.4,0.5,0.1,-2.9,-19.8,16.9,1.3,0.7,1.1,0.8,1.0,0.9,0.4,0.1,-0.2,-0.3,-0.1,0.3,0.2,0.6,0.5,0.4,0.3,0.4,0.2,0.3,0.2,0.2],
+    backgroundColor:d=>d.raw<0?'rgba(239,83,80,0.8)':'rgba(33,150,243,0.65)',borderRadius:3}]
+},options:opts({plugins:{...opts().plugins,annotation:{annotations:{covid:{type:'label',xValue:'Q2 20',yValue:-19.8,content:'-19.8%',backgroundColor:'rgba(239,83,80,0.15)',color:RED2,font:{size:9,weight:'bold'},padding:{x:5,y:2},borderRadius:4}}}},scales:scl({y:{ticks:{callback:v=>v+'%',font:{size:9.5}},grid:{color:'rgba(30,48,72,0.5)'}}})})});
+
+new Chart(document.getElementById('c_rate_vac'),{type:'line',data:{
+  labels:['22Q1','Q2','Q3','Q4','23Q1','Q2','Q3','Q4','24Q1','Q2','Q3','Q4','25Q1','Q2','Q3','Q4'],
+  datasets:[
+    {label:'BoE Rate % (leads)',data:[0.25,1.25,2.25,3.5,4.0,5.0,5.25,5.25,5.25,5.25,5.0,4.75,4.5,4.25,4.0,3.75],borderColor:GOLD,tension:0.3,borderWidth:2.5,pointRadius:0,yAxisID:'y'},
+    {label:'Vacancies 000s (lagged 6m)',data:[1280,1295,1270,1220,1150,1080,1020,980,960,940,920,905,895,890,888,890],borderColor:BLUE2,tension:0.4,borderWidth:2.5,pointRadius:0,yAxisID:'y2'}
+  ]},options:{responsive:true,maintainAspectRatio:true,animation:{duration:800},
+  interaction:{mode:'index',intersect:false},
+  plugins:{legend:{position:'bottom',labels:{boxWidth:12,padding:16,font:{size:10.5},usePointStyle:true}},
+    tooltip:{backgroundColor:'rgba(8,15,26,0.95)',borderColor:'rgba(30,48,72,0.8)',borderWidth:1,padding:12}},
+  scales:{x:{ticks:{maxTicksLimit:8,font:{size:9}},grid:{color:'rgba(30,48,72,0.5)'}},
+    y:{min:0,max:6,ticks:{callback:v=>v+'%',font:{size:9.5}},grid:{color:'rgba(30,48,72,0.5)'},position:'left'},
+    y2:{min:800,max:1400,ticks:{callback:v=>v+'k',font:{size:9.5}},grid:{display:false},position:'right'}}}});
+
+// ── FORECAST CHARTS ───────────────────────────────────────
+new Chart(document.getElementById('c_forecast_vac'),{type:'line',data:{
+  labels:['Q1 25','Q2 25','Q3 25','Q4 25','Q1 26','Q2 26','Q3 26','Q4 26','Q1 27','Q2 27','Q3 27','Q4 27','Q1 28','Q2 28','Q3 28','Q4 28','Q1 29','Q2 29','Q3 29','Q4 29','Q1 30'],
+  datasets:[
+    {label:'Actual',data:[895,890,888,890,707,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],borderColor:BLUE2,borderWidth:2.5,pointRadius:3,pointBackgroundColor:BLUE2,pointBorderColor:'#080f1a',pointBorderWidth:2,fill:false},
+    {label:'Base Case',data:[null,null,null,null,707,750,800,850,910,960,990,1016,1040,1060,1080,1100,1110,1118,1124,1126,1128],borderColor:GREEN2,borderWidth:2,borderDash:[5,4],pointRadius:0,fill:false},
+    {label:'Optimistic',data:[null,null,null,null,707,800,880,960,1040,1100,1150,1200,1230,1255,1275,1290,1295,1298,1299,1300,1300],borderColor:GOLD,borderWidth:1.5,borderDash:[2,5],pointRadius:0,fill:false},
+    {label:'Pessimistic',data:[null,null,null,null,707,690,700,710,730,760,780,800,810,820,830,838,842,845,848,849,850],borderColor:RED2,borderWidth:1.5,borderDash:[2,5],pointRadius:0,fill:false}
+  ]},options:opts({scales:scl({y:{min:600,max:1400,ticks:{callback:v=>v+'k',font:{size:9.5}},grid:{color:'rgba(30,48,72,0.5)'}}})})});
+
+new Chart(document.getElementById('c_forecast_emp'),{type:'line',data:{
+  labels:['Q1 25','Q2 25','Q3 25','Q4 25','Q1 26','Q2 26','Q3 26','Q4 26','Q1 27','Q2 27','Q3 27','Q4 27','Q1 28','Q2 28','Q3 28','Q4 28','Q1 29','Q2 29','Q1 30'],
+  datasets:[
+    {label:'Actual',data:[75.5,75.6,75.6,75.7,75.7,null,null,null,null,null,null,null,null,null,null,null,null,null,null],borderColor:BLUE2,borderWidth:2.5,pointRadius:3,pointBackgroundColor:BLUE2,pointBorderColor:'#080f1a',pointBorderWidth:2},
+    {label:'Forecast (Base)',data:[null,null,null,null,75.7,75.8,75.9,76.0,76.1,76.2,76.3,76.4,76.5,76.6,76.7,76.8,76.9,77.0,77.3],borderColor:GREEN2,borderDash:[5,4],borderWidth:2,pointRadius:0},
+    {label:'2019 Baseline 76.6%',data:Array(19).fill(76.6),borderColor:GOLD,borderDash:[3,3],borderWidth:1.5,pointRadius:0}
+  ]},options:opts({scales:scl({y:{min:74.5,max:78,ticks:{callback:v=>v+'%',font:{size:9.5}},grid:{color:'rgba(30,48,72,0.5)'}}})})});
+
+new Chart(document.getElementById('c_forecast_sal'),{type:'line',data:{
+  labels:['2022','2023','2024','2025','2026','2027','2028','2029','2030'],
+  datasets:[
+    {label:'Actual (£)',data:[25500,26000,27000,28000,29000,null,null,null,null],borderColor:BLUE2,borderWidth:2.5,pointRadius:4,pointBackgroundColor:BLUE2,pointBorderColor:'#080f1a',pointBorderWidth:2},
+    {label:'Forecast (£)',data:[null,null,null,null,29000,32800,34600,36400,38200],borderColor:GREEN2,borderDash:[5,4],borderWidth:2,pointRadius:4,pointBackgroundColor:GREEN2,pointBorderColor:'#080f1a',pointBorderWidth:2}
+  ]},options:opts({scales:scl({y:{ticks:{callback:v=>'£'+v.toLocaleString(),font:{size:9.5}},grid:{color:'rgba(30,48,72,0.5)'}}})})});
+
+// ── GRADUATE CHARTS ───────────────────────────────────────
+new Chart(document.getElementById('c_city_salary'),{type:'bar',data:{
+  labels:['London','Edinburgh','Manchester','Birmingham','Leeds','Bristol'],
+  datasets:[
+    {label:'Avg Salary (£)',data:[37200,33100,31800,30400,29900,30200],backgroundColor:['rgba(249,168,37,0.8)','rgba(33,150,243,0.75)','rgba(33,150,243,0.65)','rgba(33,150,243,0.55)','rgba(84,110,122,0.65)','rgba(84,110,122,0.65)'],borderRadius:4,yAxisID:'y'},
+    {label:'Applicants per Role',data:[156,48,52,44,41,39],backgroundColor:'rgba(239,83,80,0.4)',borderRadius:4,yAxisID:'y2'}
+  ]},options:{responsive:true,maintainAspectRatio:true,animation:{duration:800},
+  interaction:{mode:'index',intersect:false},
+  plugins:{legend:{position:'bottom',labels:{boxWidth:12,padding:16,font:{size:10.5},usePointStyle:true}},
+    tooltip:{backgroundColor:'rgba(8,15,26,0.95)',borderColor:'rgba(30,48,72,0.8)',borderWidth:1,padding:12}},
+  scales:{x:{ticks:{font:{size:10}},grid:{color:'rgba(30,48,72,0.5)'}},
+    y:{ticks:{callback:v=>'£'+v.toLocaleString(),font:{size:9.5}},grid:{color:'rgba(30,48,72,0.5)'},position:'left'},
+    y2:{ticks:{font:{size:9.5}},grid:{display:false},position:'right'}}}});
+
+new Chart(document.getElementById('c_grad_outcomes'),{type:'doughnut',data:{
+  labels:['Full-time graduate role','Part-time / non-grad','Further study','Unemployed','Other'],
+  datasets:[{data:[53.2,18.6,12.4,8.8,7.0],backgroundColor:[GREEN2,BLUE2,GOLD,RED2,GREY],borderWidth:0,hoverOffset:6}]
+},options:{responsive:true,cutout:'60%',animation:{duration:800},plugins:{legend:{position:'bottom',labels:{font:{size:10.5},padding:12,usePointStyle:true}}}}});
+
+new Chart(document.getElementById('c_sector_posts'),{type:'bar',data:{
+  labels:['Finance','Business Analysis','Data Analytics','Marketing','Operations','HR','Strategy'],
+  datasets:[{label:'Job Postings',data:[142,118,98,72,65,58,47],backgroundColor:'rgba(33,150,243,0.75)',borderRadius:4}]
+},options:opts({indexAxis:'y',scales:{x:{ticks:{font:{size:9.5}},grid:{color:'rgba(30,48,72,0.5)'}},y:{ticks:{font:{size:10}},grid:{display:false}}}})});
+
+new Chart(document.getElementById('c_exp_paradox'),{type:'doughnut',data:{
+  labels:['Needs 1+ yr experience (62.8%)','No experience required (37.2%)'],
+  datasets:[{data:[62.8,37.2],backgroundColor:[RED2,GREEN2],borderWidth:0,hoverOffset:6}]
+},options:{responsive:true,cutout:'60%',animation:{duration:800},plugins:{legend:{position:'bottom',labels:{font:{size:10.5},padding:12,usePointStyle:true}}}}});
+</script>
+</body>
+</html>

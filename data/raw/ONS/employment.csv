@@ -1,0 +1,30 @@
+period,year,quarter,employment_rate_pct,unemployment_rate_pct,inactivity_rate_pct,employed_thousands,unemployed_thousands,economically_inactive_thousands,full_time_thousands,part_time_thousands,self_employed_thousands,note
+2019Q1,2019,Q1,76.1,3.9,21.4,32614,1379,9157,24102,8512,4798,Pre-pandemic baseline
+2019Q2,2019,Q2,76.4,3.8,21.2,32721,1364,9101,24231,8490,4812,Pre-pandemic baseline
+2019Q3,2019,Q3,76.4,3.9,21.1,32758,1398,9062,24289,8469,4834,Pre-pandemic baseline
+2019Q4,2019,Q4,76.6,3.9,21.0,32842,1401,9002,24371,8471,4821,Pre-pandemic baseline (reference point)
+2020Q1,2020,Q1,76.6,4.0,21.0,32821,1441,9003,24318,8503,4789,COVID begins March 2020
+2020Q2,2020,Q2,74.8,4.1,22.6,32041,1471,9682,23512,8529,4601,Furlough scheme active - suppressed unemployment
+2020Q3,2020,Q3,74.4,4.8,22.3,31890,1728,9556,23349,8541,4512,Furlough peak - true unemployment masked
+2020Q4,2020,Q4,74.7,5.0,21.8,32015,1805,9348,23498,8517,4478,Peak recorded unemployment during COVID
+2021Q1,2021,Q1,74.9,4.9,21.7,32102,1770,9312,23541,8561,4489,Furlough winding down
+2021Q2,2021,Q2,75.1,4.8,21.6,32198,1733,9271,23589,8609,4498,Economy reopening
+2021Q3,2021,Q3,75.5,4.3,21.7,32394,1557,9312,23721,8673,4534,Strong recovery - furlough ended Sep 2021
+2021Q4,2021,Q4,75.5,4.1,21.9,32401,1481,9391,23789,8612,4567,Recovery continues
+2022Q1,2022,Q1,75.7,3.8,22.0,32490,1381,9432,23845,8645,4589,Near full employment - vacancies hit record
+2022Q2,2022,Q2,75.9,3.8,21.8,32578,1381,9367,23901,8677,4601,Employment rate peak post-COVID
+2022Q3,2022,Q3,75.5,3.5,22.4,32412,1268,9612,23756,8656,4578,Inflation shock begins affecting workforce
+2022Q4,2022,Q4,75.6,3.7,22.2,32456,1342,9534,23798,8658,4556,Rate hikes begin squeezing economy
+2023Q1,2023,Q1,75.8,3.8,22.0,32534,1381,9445,23847,8687,4523,Economy under rate pressure
+2023Q2,2023,Q2,75.7,4.2,21.6,32490,1527,9278,23812,8678,4489,Unemployment rising - hiring freeze
+2023Q3,2023,Q3,75.6,4.3,21.6,32451,1562,9278,23778,8673,4467,Technical recession begins (GDP -0.1%)
+2023Q4,2023,Q4,74.8,4.2,22.4,32104,1528,9613,23549,8555,4434,Inactivity rises - long-term sick increases
+2024Q1,2024,Q1,74.5,4.2,22.7,31984,1528,9739,23467,8517,4412,Economic inactivity at post-2020 high
+2024Q2,2024,Q2,74.4,4.4,22.6,31945,1601,9703,23423,8522,4398,Unemployment rising further
+2024Q3,2024,Q3,74.8,4.3,22.3,32094,1562,9580,23531,8563,4412,Rate cuts begin (Aug 2024) - sentiment improves
+2024Q4,2024,Q4,75.1,4.4,22.0,32231,1601,9445,23609,8622,4434,Gradual stabilisation
+2025Q1,2025,Q1,75.3,4.5,21.7,32317,1638,9312,23689,8628,4445,Recovery underway - hiring improving
+2025Q2,2025,Q2,75.5,4.4,21.6,32404,1601,9278,23745,8659,4456,Business confidence returning
+2025Q3,2025,Q3,75.4,4.3,21.8,32361,1562,9368,23712,8649,4467,Graduate hiring improving slowly
+2025Q4,2025,Q4,75.6,4.2,21.7,32447,1527,9322,23778,8669,4478,Positive trajectory
+2026Q1,2026,Q1,75.7,4.4,21.4,32491,1601,9190,23812,8679,4489,Current period (still below 76.6% baseline)

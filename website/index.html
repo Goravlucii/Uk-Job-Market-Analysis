@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Is the UK Job Market Recovering After 2020? | Gaurav Indora</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<!-- ── NAV ──────────────────────────────────────────────────── -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand">Gaurav Indora · Portfolio</div>
+    <div class="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#findings">Key Findings</a>
+      <a href="#charts">Charts</a>
+      <a href="#skills">Skills Used</a>
+      <a href="#forecast">Forecast</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ─────────────────────────────────────────────────── -->
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <div class="tag">Business & Data Analytics Portfolio Project</div>
+    <h1>Is the UK Job Market<br><span class="red">Recovering After 2020?</span></h1>
+    <p class="hero-sub">A structured, evidence-based investigation into employment, vacancies, wages, graduate reality and the road ahead — 2020 to 2030</p>
+    <div class="hero-meta">
+      <span>📊 45 Research Questions</span>
+      <span>🗃 18 Datasets</span>
+      <span>📈 15 Charts</span>
+      <span>🛠 Excel · SQL · Python · Power BI · Tableau · R</span>
+    </div>
+    <div class="hero-btns">
+      <a class="btn-primary" href="#findings">View Findings</a>
+      <a class="btn-secondary" href="https://github.com" target="_blank">GitHub Repository ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── KPI STRIP ─────────────────────────────────────────────── -->
+<section class="kpi-strip" id="overview">
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-value">75.7%</div>
+      <div class="kpi-label">Employment Rate (Q1 2026)</div>
+      <div class="kpi-delta below">▼ 0.9pp below pre-pandemic</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">4.4%</div>
+      <div class="kpi-label">Unemployment Rate (Q1 2026)</div>
+      <div class="kpi-delta above">▲ +0.5pp above 2019 baseline</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">893k</div>
+      <div class="kpi-label">Open Vacancies (Q1 2026)</div>
+      <div class="kpi-delta below">▼ 31% below 2022 peak of 1.295m</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">11.1%</div>
+      <div class="kpi-label">Peak CPI Inflation (Oct 2022)</div>
+      <div class="kpi-delta neutral">Now 2.3% — near target</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">3.25%</div>
+      <div class="kpi-label">BoE Base Rate (Jun 2026)</div>
+      <div class="kpi-delta above">Down from 5.25% peak</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">62.8%</div>
+      <div class="kpi-label">Entry-Level Roles Needing Experience</div>
+      <div class="kpi-delta below">The Experience Paradox</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── THE CONTRADICTION ─────────────────────────────────────── -->
+<section class="section light" id="findings">
+  <div class="container">
+    <div class="section-label">THE CENTRAL FINDING</div>
+    <h2>The Contradiction That Drove This Research</h2>
+    <div class="paradox-grid">
+      <div class="paradox-card green-card">
+        <h3>📋 What Official Data Says</h3>
+        <ul>
+          <li>Unemployment: <strong>4.4%</strong> — near historic lows</li>
+          <li>Open vacancies: <strong>893,000</strong> roles advertised</li>
+          <li>Nominal wages growing <strong>5%+ year-on-year</strong></li>
+          <li>GDP returned to positive growth in 2024</li>
+        </ul>
+      </div>
+      <div class="paradox-card red-card">
+        <h3>🎓 What Graduates Report</h3>
+        <ul>
+          <li><strong>200–500 applications</strong> before a single offer</li>
+          <li>Interview-to-offer conversion: <strong>&lt;3%</strong></li>
+          <li><strong>53.2%</strong> of 2024 graduates not in graduate employment 6 months post-graduation</li>
+          <li>Top rejection reason: "insufficient experience" (on <em>entry-level</em> roles)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout">
+      <strong>Conclusion:</strong> The headline statistics mask a fragmented labour market. The UK job market has recovered at the top — but not at the graduate entry level. The experience paradox, ATS filtering, macroeconomic suppression, and geographic concentration are structural barriers that low unemployment figures do not capture.
+    </div>
+  </div>
+</section>
+
+<!-- ── CHARTS ────────────────────────────────────────────────── -->
+<section class="section dark" id="charts">
+  <div class="container">
+    <div class="section-label">DATA VISUALISATION</div>
+    <h2>Key Charts from the Analysis</h2>
+
+    <div class="chart-grid">
+      <!-- Chart A: Employment -->
+      <div class="chart-box">
+        <h3>UK Employment Rate 2019–2026</h3>
+        <canvas id="empChart"></canvas>
+        <p class="chart-src">Source: ONS Labour Force Survey (EMP01)</p>
+      </div>
+      <!-- Chart B: Vacancies -->
+      <div class="chart-box">
+        <h3>UK Job Vacancies (Thousands) 2019–2026</h3>
+        <canvas id="vacChart"></canvas>
+        <p class="chart-src">Source: ONS Vacancy Survey (VACS01)</p>
+      </div>
+      <!-- Chart C: CPI vs Base Rate -->
+      <div class="chart-box">
+        <h3>CPI Inflation vs BoE Base Rate</h3>
+        <canvas id="ecoChart"></canvas>
+        <p class="chart-src">Source: ONS / Bank of England</p>
+      </div>
+      <!-- Chart D: Skills -->
+      <div class="chart-box">
+        <h3>Top Skills in Graduate Analyst Postings</h3>
+        <canvas id="skillsChart"></canvas>
+        <p class="chart-src">Source: Reed & LinkedIn (n=600 postings)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FIVE CAUSES ───────────────────────────────────────────── -->
+<section class="section light">
+  <div class="container">
+    <div class="section-label">ROOT CAUSE ANALYSIS</div>
+    <h2>Five Structural Barriers to Graduate Employment</h2>
+    <div class="cause-grid">
+      <div class="cause-card">
+        <div class="cause-num">01</div>
+        <h4>Skills Mismatch</h4>
+        <p>74% of postings require SQL. 82% require Excel. Yet these skills are rarely core to university Business degrees. The gap between what employers need and what graduates learn is widening.</p>
+        <div class="cause-stat">SQL appears in 74% of analyst postings</div>
+      </div>
+      <div class="cause-card">
+        <div class="cause-num">02</div>
+        <h4>The Experience Paradox</h4>
+        <p>62.8% of roles labelled "entry level" or "graduate" require 1+ years of prior experience. This creates a structural barrier for first-time applicants that no amount of applications overcomes.</p>
+        <div class="cause-stat">62.8% of 'entry-level' roles need experience</div>
+      </div>
+      <div class="cause-card">
+        <div class="cause-num">03</div>
+        <h4>ATS Filtering</h4>
+        <p>Applicant Tracking Systems screen CVs automatically. Industry research suggests 70%+ of applications are rejected before human review — often due to keyword mismatches rather than genuine unsuitability.</p>
+        <div class="cause-stat">~70% rejected before human review (ISE)</div>
+      </div>
+      <div class="cause-card">
+        <div class="cause-num">04</div>
+        <h4>Macroeconomic Suppression</h4>
+        <p>The BoE raised rates from 0.1% to 5.25% (2021–2023). Correlation analysis shows a -0.71 Pearson r between base rate and vacancy volume at 6-month lag — confirming rate hikes depressed hiring.</p>
+        <div class="cause-stat">Pearson r = -0.71 (rate vs vacancies, 6-month lag)</div>
+      </div>
+      <div class="cause-card">
+        <div class="cause-num">05</div>
+        <h4>Geographic Concentration</h4>
+        <p>86.2% of graduate analyst postings are in London, which contains only 13% of the UK population. This creates an extreme geographic bottleneck for graduates outside the capital.</p>
+        <div class="cause-stat">86.2% of postings are in London</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SKILLS USED ───────────────────────────────────────────── -->
+<section class="section dark" id="skills">
+  <div class="container">
+    <div class="section-label">PROJECT SKILLS</div>
+    <h2>15 Skills Applied in This Project</h2>
+    <div class="skills-grid">
+      <div class="skill-tag excel">Microsoft Excel</div>
+      <div class="skill-tag sql">SQL</div>
+      <div class="skill-tag python">Python</div>
+      <div class="skill-tag powerbi">Power BI</div>
+      <div class="skill-tag tableau">Tableau</div>
+      <div class="skill-tag r">R Programming</div>
+      <div class="skill-tag viz">Data Visualisation</div>
+      <div class="skill-tag kpi">KPI Reporting</div>
+      <div class="skill-tag dash">Dashboard Development</div>
+      <div class="skill-tag stats">Statistical Analysis</div>
+      <div class="skill-tag clean">Data Cleaning</div>
+      <div class="skill-tag bi">Business Intelligence</div>
+      <div class="skill-tag forecast">Forecasting</div>
+      <div class="skill-tag auto">Process Automation</div>
+      <div class="skill-tag req">Requirements Gathering</div>
+    </div>
+    <div class="stack-table">
+      <table>
+        <thead><tr><th>Tool</th><th>Used For</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr><td>Microsoft Excel</td><td>Pivot tables, XLOOKUP, salary analysis, KPI workbook</td><td>KPI_Dashboard.xlsx</td></tr>
+          <tr><td>SQL (SQLite)</td><td>Relational DB, 25+ business queries, CTEs, window functions</td><td>uk_job_market.db</td></tr>
+          <tr><td>Python (Pandas)</td><td>Data cleaning, EDA, correlation, regression, charts</td><td>3 analysis scripts + 15 charts</td></tr>
+          <tr><td>R (forecast pkg)</td><td>ARIMA time series, regression, scenario modelling</td><td>4 forecast CSVs</td></tr>
+          <tr><td>Tableau</td><td>Interactive 6-page dashboard (Tableau Public)</td><td>Published dashboard URL</td></tr>
+          <tr><td>Power BI</td><td>5-page report with DAX measures + Power Query</td><td>.pbix report file</td></tr>
+          <tr><td>Process Automation</td><td>ONS downloader.py, Reed parser.py</td><td>2 automation scripts</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ── FORECAST ──────────────────────────────────────────────── -->
+<section class="section light" id="forecast">
+  <div class="container">
+    <div class="section-label">2027–2030 OUTLOOK</div>
+    <h2>UK Graduate Market Forecast</h2>
+    <div class="forecast-grid">
+      <div class="forecast-card">
+        <div class="fc-year">2027</div>
+        <div class="fc-stat">960k vacancies</div>
+        <div class="fc-stat">£32,800 avg grad salary</div>
+        <div class="fc-stat">76.1% employment rate</div>
+        <div class="fc-note">Rate cuts feeding through. Hiring improving.</div>
+      </div>
+      <div class="forecast-card highlight">
+        <div class="fc-year">2028</div>
+        <div class="fc-stat">1,016k vacancies</div>
+        <div class="fc-stat">£34,600 avg grad salary</div>
+        <div class="fc-stat">76.5% employment rate</div>
+        <div class="fc-note">⭐ Employment rate returns to pre-pandemic baseline (H10 rejected — baseline met earlier than forecast).</div>
+      </div>
+      <div class="forecast-card">
+        <div class="fc-year">2030</div>
+        <div class="fc-stat">1,128k vacancies</div>
+        <div class="fc-stat">£38,200 avg grad salary</div>
+        <div class="fc-stat">77.3% employment rate</div>
+        <div class="fc-note">Full recovery. AI creates new analyst demand offsetting displacement.</div>
+      </div>
+    </div>
+    <div class="scenario-note">
+      <strong>Scenarios modelled:</strong> Base case (above) · Optimistic (faster rate cuts, stronger GDP) · Pessimistic (AI displacement accelerates, growth stalls).<br>
+      Model: ARIMA (vacancies/employment) + Linear Regression (salary). Backtest MAPE: &lt;8%. See R models in GitHub.
+    </div>
+  </div>
+</section>
+
+<!-- ── HYPOTHESES SCOREBOARD ─────────────────────────────────── -->
+<section class="section dark">
+  <div class="container">
+    <div class="section-label">HYPOTHESIS TESTING</div>
+    <h2>10 Hypotheses — Confirmed or Rejected?</h2>
+    <div class="verdict-table">
+      <table>
+        <thead><tr><th>Hypothesis</th><th>Verdict</th><th>Evidence</th></tr></thead>
+        <tbody>
+          <tr><td>H1: Labour market not fully recovered</td><td><span class="verdict confirmed">CONFIRMED</span></td><td>Employment rate 75.7% vs 76.6% baseline; inactivity elevated</td></tr>
+          <tr><td>H2: Rate hikes caused vacancy decline</td><td><span class="verdict confirmed">CONFIRMED</span></td><td>Pearson r = -0.71 at 6-month lag</td></tr>
+          <tr><td>H3: Real wages fell during inflation</td><td><span class="verdict confirmed">CONFIRMED</span></td><td>Real wages fell -4.2% in 2022; 6 quarters of negative real growth</td></tr>
+          <tr><td>H4: SQL & Excel are top two skills</td><td><span class="verdict partial">PARTIAL</span></td><td>SQL at 74% — confirmed. Excel at 82% — confirmed. But "Communication" ranked #1 (89.9%)</td></tr>
+          <tr><td>H5: Experience paradox in 'entry-level' roles</td><td><span class="verdict confirmed">CONFIRMED</span></td><td>62.8% of graduate-labelled roles require prior experience</td></tr>
+          <tr><td>H6: London dominates graduate vacancies</td><td><span class="verdict confirmed">CONFIRMED</span></td><td>86.2% of analyst postings in London (vs 13% population share)</td></tr>
+          <tr><td>H7: AI has not yet reduced grad vacancies</td><td><span class="verdict confirmed">CONFIRMED</span></td><td>Vacancies broadly stable; AI skills appearing in 28% of postings</td></tr>
+          <tr><td>H8: Rate cuts will boost hiring by Q3 2026</td><td><span class="verdict pending">PENDING</span></td><td>Vacancy uptick visible from Q3 2025 — monitoring continues</td></tr>
+          <tr><td>H9: Northern cities more competitive for grads</td><td><span class="verdict confirmed">CONFIRMED</span></td><td>London: 401 postings for est. 1.2m graduates. Mancester: 13 postings, ~120k grads</td></tr>
+          <tr><td>H10: Baseline not reached before 2028</td><td><span class="verdict rejected">REJECTED</span></td><td>Model projects baseline return by Q2 2028 — earlier than expected</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ───────────────────────────────────────────────── -->
+<section class="section light" id="contact">
+  <div class="container center">
+    <div class="section-label">CONNECT</div>
+    <h2>Gaurav Indora</h2>
+    <p>Business Analytics Graduate · Seeking Business Analyst & Data Analyst Roles in the UK</p>
+    <div class="contact-links">
+      <a class="btn-primary" href="mailto:gauravindora744@gmail.com">Email Me</a>
+      <a class="btn-secondary" href="https://linkedin.com" target="_blank">LinkedIn ↗</a>
+      <a class="btn-secondary" href="https://github.com" target="_blank">GitHub ↗</a>
+    </div>
+    <p class="skills-footer">Excel · SQL · Python · Power BI · Tableau · R · Statistical Analysis · Forecasting · Business Intelligence</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <p>© 2026 Gaurav Indora · UK Job Market Analysis Portfolio Project · Data sources: ONS, Bank of England, HESA, Reed, LinkedIn</p>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

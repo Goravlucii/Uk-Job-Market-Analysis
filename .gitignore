@@ -1,0 +1,33 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+.env
+.venv/
+venv/
+
+# SQLite temp files
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Node
+node_modules/
+npm-debug.log*
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
+
+# Office temp files
+~$*.docx
+~$*.xlsx
+
+# Build outputs
+*.log

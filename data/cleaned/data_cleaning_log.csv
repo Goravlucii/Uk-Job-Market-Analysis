@@ -1,0 +1,8 @@
+dataset,action,rows_before,rows_after,notes,timestamp
+Employment,Clean + feature engineer,29,29,"Added period_dt, gap_vs_2019 cols",2026-06-22 10:53:53
+Vacancies,Clean + derive metrics,29,29,"Added vs_peak, vs_prepandemic, qoq_change",2026-06-22 10:53:53
+CPI+BoE,Merge + calculate real rate,90,90,"Added real_rate, rolling avg, target miss",2026-06-22 10:53:53
+GDP,Clean + derive cumulative + recession flag,29,29,"Added cumulative_growth, recession_indicator",2026-06-22 10:53:53
+Master,Quarterly merge: employment + vacancies + GDP + CPI + rates,29,29,Master table ready,2026-06-22 10:53:53
+JobPostings,"Clean, standardise, flag outliers",600,465,Removed 135 salary outliers (z>3),2026-06-22 10:53:53
+Skills,Extract skill frequency rankings,2950,29,skills_demand.csv created,2026-06-22 10:53:53

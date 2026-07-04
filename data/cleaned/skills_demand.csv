@@ -1,0 +1,30 @@
+skill,frequency,pct_of_postings,rank
+Communication,418,89.9,1
+Data Analysis,343,73.8,2
+Agile,280,60.2,3
+Business Intelligence,259,55.7,4
+KPI Reporting,155,33.3,5
+Confluence,152,32.7,6
+Microsoft Excel,144,31.0,7
+ChatGPT/AI Tools,131,28.2,8
+Financial Modelling,128,27.5,9
+Azure,123,26.5,10
+JIRA,122,26.2,11
+DAX,120,25.8,12
+AWS,119,25.6,13
+Forecasting,99,21.3,14
+Copilot,92,19.8,15
+Microsoft Office,87,18.7,16
+Pivot Tables,48,10.3,17
+Power BI,36,7.7,18
+Machine Learning,34,7.3,19
+PowerPoint,17,3.7,20
+Power Query,16,3.4,21
+Problem Solving,14,3.0,22
+Python,4,0.9,23
+Process Mapping,3,0.6,24
+Stakeholder Management,2,0.4,25
+Prompt Engineering,1,0.2,26
+R Programming,1,0.2,27
+Requirements Gathering,1,0.2,28
+Statistical Analysis,1,0.2,29

@@ -1,0 +1,6 @@
+year,base_vacancies_k,optimistic_vacancies_k,pessimistic_vacancies_k,base_salary_gbp,optimistic_salary_gbp,pessimistic_salary_gbp,base_employment_rate,optimistic_employment_rate,pessimistic_employment_rate
+2026,893,930,870,31000,32000,30000,75.7,76.0,75.4
+2027,960,1010,890,32800,34500,31200,76.1,76.6,75.6
+2028,1020,1080,905,34600,37200,32500,76.5,77.2,75.8
+2029,1072,1140,915,36400,40100,33800,76.9,77.8,76.0
+2030,1128,1190,920,38200,43200,35100,77.3,78.2,76.2
