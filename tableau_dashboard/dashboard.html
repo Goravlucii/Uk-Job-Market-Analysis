@@ -236,6 +236,7 @@ canvas{max-height:240px}
   <div class="sidebar-divider"></div>
   <div class="sidebar-section">Graduate Focus</div>
   <div class="nav-item" onclick="showPage('graduate',this)"><span class="nav-icon">&#127891;</span> Graduate Market<span class="nav-badge">!</span></div>
+  <div class="nav-item" onclick="showPage('policy',this)"><span class="nav-icon">&#127981;</span> Politics &amp; Policy<span class="nav-badge">NEW</span></div>
   <div class="sidebar-divider"></div>
   <div class="sidebar-footer">
     <div class="author-card">
@@ -661,6 +662,116 @@ canvas{max-height:240px}
   </div>
 </div>
 
+<!-- ==================================================
+     POLICY & POLITICS PAGE
+     ================================================== -->
+<div id="page-policy" class="page">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Politics &amp; Policy Impact</div>
+      <div class="page-subtitle">How government decisions, immigration rules, Brexit and political instability have shaped the graduate job market 2020&ndash;2026</div>
+    </div>
+  </div>
+  <div class="content">
+
+    <div class="kpi-strip">
+      <div class="kpi-card red"><div class="kpi-label">PMs in 10 Years</div><div class="kpi-value">7</div><div class="kpi-delta down">Cameron to Burnham (2016&ndash;2026)</div></div>
+      <div class="kpi-card red"><div class="kpi-label">Skilled Worker Min Salary</div><div class="kpi-value">&pound;41,700</div><div class="kpi-delta down">&#9650; From &pound;38,700 (Jul 2025)</div></div>
+      <div class="kpi-card gold"><div class="kpi-label">Graduate Visa (from 2027)</div><div class="kpi-value">18 mo</div><div class="kpi-delta down">&#9660; Cut from 24 months</div></div>
+      <div class="kpi-card red"><div class="kpi-label">ILR Qualifying Period</div><div class="kpi-value">10 yrs</div><div class="kpi-delta down">&#9650; Proposed up from 5 years</div></div>
+      <div class="kpi-card gold"><div class="kpi-label">Employer Sponsorship Cost</div><div class="kpi-value">&pound;10k+</div><div class="kpi-delta down">Per international hire</div></div>
+    </div>
+
+    <div class="insight red">
+      <strong>Breaking (June 22, 2026):</strong> Keir Starmer resigned as UK Prime Minister, making him the 7th PM in 10 years. Andy Burnham (Greater Manchester Mayor) is expected to replace him. Staffing bodies immediately warned that continued leadership instability risks delaying hiring decisions further at a time when economic momentum is already fragile. Businesses need stability, clarity and confidence in government direction before committing to headcount growth.
+    </div>
+
+    <!-- PM TIMELINE -->
+    <div class="chart-card" style="margin-bottom:18px">
+      <div class="chart-header"><div><div class="chart-title">UK Prime Ministers Since 2016 &mdash; and Their Labour Market Legacy</div><div class="chart-source">House of Commons Library &middot; ONS &middot; Global Banking &amp; Finance Review</div></div><span class="chart-badge red">7 PMs in 10 years</span></div>
+      <div class="timeline" id="pm-timeline"></div>
+    </div>
+
+    <div class="chart-grid g2">
+      <!-- VISA CHANGES -->
+      <div class="chart-card">
+        <div class="chart-header"><div><div class="chart-title">Graduate &amp; Post-Study Work Visa: Timeline of Changes</div><div class="chart-source">UKVI &middot; UKCISA &middot; Immigration White Paper 2025</div></div><span class="chart-badge red">Tightening fast</span></div>
+        <table class="data-table">
+          <thead><tr><th>Date</th><th>Change</th><th>Impact on Graduates</th></tr></thead>
+          <tbody>
+            <tr><td>Jul 2021</td><td>PSW visa reintroduced</td><td class="pos">2 years post-study work</td></tr>
+            <tr><td>Jan 2024</td><td>Dependant ban (non-PhD)</td><td class="neg">International students cannot bring family</td></tr>
+            <tr><td>Apr 2024</td><td>Skilled Worker salary: &pound;38,700</td><td class="neg">Many grad roles below threshold</td></tr>
+            <tr><td>Jan 2026</td><td>English B1 raised to B2</td><td class="neg">Higher bar for Skilled Worker switch</td></tr>
+            <tr><td>Jul 2025</td><td>Skilled Worker salary: &pound;41,700</td><td class="neg">Entry-level avg &pound;28k cannot qualify</td></tr>
+            <tr><td>Jan 2027</td><td>Graduate visa: 24m reduced to 18m</td><td class="neg">Less time to secure sponsorship</td></tr>
+            <tr><td>Proposed</td><td>ILR period: 5yr raised to 10yr</td><td class="neg">Settlement takes a decade</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SPONSORSHIP COST -->
+      <div class="chart-card">
+        <div class="chart-header"><div><div class="chart-title">True Cost to Sponsor One International Graduate (2026)</div><div class="chart-source">Home Office &middot; GetBorderless &middot; IAS Services</div></div><span class="chart-badge red">&pound;10,000+ per hire</span></div>
+        <canvas id="c_sponsor_cost"></canvas>
+        <div class="insight" style="margin-top:14px;margin-bottom:0;padding:10px 14px;font-size:0.78rem">
+          <strong>Employer cannot recover</strong> any of these costs from the worker (rule from Dec 2024). Smaller firms simply do not hire international graduates as a result.
+        </div>
+      </div>
+    </div>
+
+    <!-- BREXIT IMPACT -->
+    <div class="chart-card" style="margin-bottom:18px">
+      <div class="chart-header"><div><div class="chart-title">Brexit: The Structural Damage to Graduate Sectors</div><div class="chart-source">Taylor &amp; Francis &middot; Econofact &middot; Revelio Labs &middot; Apache Associates</div></div><span class="chart-badge red">85k-105k missing jobs</span></div>
+      <div class="chart-grid g2" style="margin-bottom:0">
+        <div>
+          <canvas id="c_brexit_jobs"></canvas>
+        </div>
+        <div>
+          <table class="data-table">
+            <thead><tr><th>Sector</th><th>Brexit Impact</th><th>Graduate Effect</th></tr></thead>
+            <tbody>
+              <tr><td>Financial Services</td><td class="neg">85k&ndash;105k jobs not created vs trend</td><td class="neg">Fewer graduate analyst roles</td></tr>
+              <tr><td>Professional Services</td><td class="neg">EU talent harder to hire post-2021</td><td class="neg">Labour shortages reduce entry-level spots</td></tr>
+              <tr><td>Tech</td><td class="warn">EU engineers fell from 8% to 5% of new hires</td><td class="warn">Competition from non-EU talent rises</td></tr>
+              <tr><td>Research &amp; Academia</td><td class="neg">Loss of Horizon Europe (2021&ndash;2023)</td><td class="neg">Fewer research graduate positions</td></tr>
+              <tr><td>Hospitality &amp; Retail</td><td class="neg">EU workers left; unfilled vacancies</td><td class="pos">Some adjacent opportunity</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-grid g2">
+      <!-- POLICY IMPACT CHART -->
+      <div class="chart-card">
+        <div class="chart-header"><div><div class="chart-title">Policy Shocks vs Graduate Vacancy Volume</div><div class="chart-source">ONS &middot; House of Commons Library &middot; ISE</div></div></div>
+        <canvas id="c_policy_vacancies"></canvas>
+      </div>
+
+      <!-- WHAT THIS MEANS -->
+      <div class="chart-card">
+        <div class="chart-header"><div><div class="chart-title">The Triple Squeeze on International Graduates (2026)</div><div class="chart-source">QMUL Legal Advice Centre &middot; Freeths &middot; Ward Hadaway</div></div></div>
+        <div style="padding-top:6px">
+          <div class="insight red" style="margin-bottom:12px;padding:12px 14px">
+            <strong>Squeeze 1: Time.</strong> Graduate visa reduced to 18 months from Jan 2027. That is 18 months to find a job, get sponsored, and meet a &pound;41,700 salary threshold that most entry-level roles do not pay.
+          </div>
+          <div class="insight warn" style="margin-bottom:12px;padding:12px 14px">
+            <strong>Squeeze 2: Cost.</strong> Employers pay &pound;10,000+ to sponsor one international hire. Most SMEs (which account for 60% of UK employment) simply refuse. Only large firms sponsor.
+          </div>
+          <div class="insight warn" style="margin-bottom:12px;padding:12px 14px">
+            <strong>Squeeze 3: Salary gap.</strong> Average graduate starting salary is &pound;28,000. Skilled Worker visa requires &pound;41,700. The gap is &pound;13,700 per year &mdash; meaning most grad roles do not qualify for sponsorship at all.
+          </div>
+          <div class="insight green" style="margin-bottom:0;padding:12px 14px">
+            <strong>The exception.</strong> Tech, finance and consulting at large firms (KPMG, Deloitte, Goldman Sachs, HSBC) do sponsor. Target these directly. Apply early &mdash; schemes open in September.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 </div><!-- /main -->
 </div><!-- /layout -->
 
@@ -941,6 +1052,55 @@ new Chart(document.getElementById('c_exp_paradox'),{type:'doughnut',data:{
   labels:['Needs 1+ yr experience (62.8%)','No experience required (37.2%)'],
   datasets:[{data:[62.8,37.2],backgroundColor:[RED2,GREEN2],borderWidth:0,hoverOffset:6}]
 },options:{responsive:true,cutout:'60%',animation:{duration:800},plugins:{legend:{position:'bottom',labels:{font:{size:10.5},padding:12,usePointStyle:true}}}}});
+
+// ── POLICY PAGE ───────────────────────────────────────────
+// PM Timeline
+const pms=[
+  {name:'David Cameron',period:'2010&ndash;2016',reason:'Resigned after Brexit referendum loss',impact:'Triggered Brexit uncertainty — 85k&ndash;105k financial services jobs never created',color:'rgba(33,150,243,0.8)'},
+  {name:'Theresa May',period:'2016&ndash;2019',reason:'Resigned over Brexit deal failure',impact:'3 years of Brexit paralysis — EU graduates stopped applying to UK roles',color:'rgba(249,168,37,0.8)'},
+  {name:'Boris Johnson',period:'2019&ndash;2022',reason:'Resigned amid Partygate scandal',impact:'COVID furlough scheme saved 9m jobs; post-COVID boom created record 1.295m vacancies',color:'rgba(33,150,243,0.65)'},
+  {name:'Liz Truss',period:'Sep&ndash;Oct 2022',reason:'Resigned after 45 days — mini-budget crash',impact:'Mini-budget caused gilt market crisis. BoE forced emergency bond buying. Business confidence collapsed.',color:'rgba(239,83,80,0.9)'},
+  {name:'Rishi Sunak',period:'2022&ndash;2024',reason:'Lost 2024 general election',impact:'Raised Skilled Worker salary threshold to &pound;38,700. Restricted Graduate visa dependants. Tightened immigration across the board.',color:'rgba(249,168,37,0.7)'},
+  {name:'Keir Starmer',period:'2024&ndash;Jun 2026',reason:'Resigned June 22, 2026 amid Labour leadership crisis',impact:'April 2025 NI rise caused 167,000 job losses. Graduate hiring declined 8%. Staffing bodies warned instability freezing hiring.',color:'rgba(239,83,80,0.75)'},
+  {name:'Andy Burnham (expected)',period:'2026&ndash;present',reason:'Incoming PM following Starmer resignation',impact:'Policy unclear. Business confidence fragile. 7th PM in 10 years signals structural political instability.',color:'rgba(84,110,122,0.8)'},
+];
+const pmtl=document.getElementById('pm-timeline');
+pms.forEach(pm=>{
+  pmtl.innerHTML+=`<div class="timeline-item">
+    <div class="timeline-dot" style="background:${pm.color}"></div>
+    <div class="timeline-date" style="color:${pm.color}">${pm.period}</div>
+    <div class="timeline-title">${pm.name} <span style="font-weight:400;font-size:0.78rem;color:var(--text2)">&mdash; ${pm.reason}</span></div>
+    <div class="timeline-detail">${pm.impact}</div>
+  </div>`;
+});
+
+// Sponsorship cost bar
+new Chart(document.getElementById('c_sponsor_cost'),{type:'bar',data:{
+  labels:['Sponsor Licence','Certificate of Sponsorship','Immigration Skills Charge','Legal Fees (est)','Admin Time (est)'],
+  datasets:[{label:'Cost (£)',data:[1682,525,2640,6000,1200],
+    backgroundColor:['rgba(239,83,80,0.75)','rgba(249,168,37,0.75)','rgba(239,83,80,0.65)','rgba(84,110,122,0.75)','rgba(84,110,122,0.65)'],borderRadius:4}]
+},options:opts({indexAxis:'y',scales:{x:{ticks:{callback:v=>'£'+v.toLocaleString(),font:{size:9.5}},grid:{color:'rgba(30,48,72,0.5)'}},y:{ticks:{font:{size:10}},grid:{display:false}}}})});
+
+// Brexit jobs chart
+new Chart(document.getElementById('c_brexit_jobs'),{type:'bar',data:{
+  labels:['2016','2017','2018','2019','2020','2021','2022','2023','2024'],
+  datasets:[
+    {label:'Actual Financial Services Jobs (000s)',data:[1142,1148,1151,1155,1112,1118,1128,1135,1140],backgroundColor:'rgba(33,150,243,0.7)',borderRadius:3},
+    {label:'Pre-referendum Trend (000s)',data:[1142,1162,1182,1202,1185,1222,1245,1258,1262],backgroundColor:'rgba(239,83,80,0.3)',borderRadius:3}
+  ]},options:opts({plugins:{...opts().plugins,annotation:{annotations:{gap:{type:'label',xValue:'2024',yValue:1200,content:'~85k-105k gap',backgroundColor:'rgba(239,83,80,0.15)',color:RED2,font:{size:9,weight:'bold'},padding:{x:5,y:2},borderRadius:4}}}},scales:scl({y:{min:1080,ticks:{callback:v=>v+'k',font:{size:9.5}},grid:{color:'rgba(30,48,72,0.5)'}}})})});
+
+// Policy shocks vs vacancies
+new Chart(document.getElementById('c_policy_vacancies'),{type:'line',data:{
+  labels:['2019','2020','2021','2022','2023','2024','2025','2026'],
+  datasets:[
+    {label:'Total Vacancies (000s)',data:[820,600,880,1280,1050,930,890,707],borderColor:BLUE2,backgroundColor:'rgba(33,150,243,0.07)',fill:true,tension:0.4,borderWidth:2.5,pointRadius:4,pointBackgroundColor:BLUE2,pointBorderColor:'#080f1a',pointBorderWidth:2}
+  ]},options:opts({plugins:{...opts().plugins,annotation:{annotations:{
+    brexit:{type:'label',xValue:'2019',yValue:820,content:'Brexit Jan 2020',backgroundColor:'rgba(249,168,37,0.12)',color:GOLD,font:{size:8,weight:'bold'},padding:{x:4,y:2},borderRadius:3},
+    covid:{type:'label',xValue:'2020',yValue:600,content:'COVID',backgroundColor:'rgba(239,83,80,0.12)',color:RED2,font:{size:8,weight:'bold'},padding:{x:4,y:2},borderRadius:3},
+    truss:{type:'label',xValue:'2022',yValue:1280,content:'Truss mini-budget',backgroundColor:'rgba(239,83,80,0.12)',color:RED2,font:{size:8,weight:'bold'},padding:{x:4,y:2},borderRadius:3},
+    ni:{type:'label',xValue:'2025',yValue:890,content:'NI Rise +167k jobs lost',backgroundColor:'rgba(239,83,80,0.12)',color:RED2,font:{size:8,weight:'bold'},padding:{x:4,y:2},borderRadius:3},
+    starmer:{type:'label',xValue:'2026',yValue:707,content:'Starmer resigns',backgroundColor:'rgba(249,168,37,0.12)',color:GOLD,font:{size:8,weight:'bold'},padding:{x:4,y:2},borderRadius:3}
+  }}},scales:scl({y:{min:500,ticks:{callback:v=>v+'k',font:{size:9.5}},grid:{color:'rgba(30,48,72,0.5)'}}})})});
 </script>
 </body>
 </html>
