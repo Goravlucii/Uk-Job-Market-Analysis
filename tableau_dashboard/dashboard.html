@@ -858,8 +858,7 @@ let policyChartsInit=false;
 function initPolicyCharts(){
   if(policyChartsInit) return;
   policyChartsInit=true;
-  const BLUE2='#2196f3',GREEN2='#4caf50',GREEN3='#81c784',GOLD='#f9a825',RED2='#ef5350',TEXT='#e8f0fe',TEXT2='#90a4ae';
-  function pOpts(extra={}){return{responsive:true,maintainAspectRatio:true,animation:{duration:600},plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(8,15,26,0.92)',titleColor:TEXT,bodyColor:TEXT2,borderColor:'rgba(30,48,72,0.8)',borderWidth:1,padding:10},...(extra.plugins||{})},scales:{x:{ticks:{color:TEXT2,font:{size:9.5}},grid:{color:'rgba(30,48,72,0.5)'}},y:{ticks:{color:TEXT2,font:{size:9.5}},grid:{color:'rgba(30,48,72,0.5)'}},...(extra.scales||{})}};};}
+  const BLUE2='#2196f3',GREEN2='#4caf50',GOLD='#f9a825',TEXT='#e8f0fe',TEXT2='#90a4ae';
   // Cost comparison grouped bar
   new Chart(document.getElementById('c_cost_comparison'),{type:'bar',data:{
     labels:['Salary (3 yrs)','Sponsorship Fees','Turnover Replacement','Productivity Loss'],
