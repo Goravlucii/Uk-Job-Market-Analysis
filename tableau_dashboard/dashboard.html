@@ -852,6 +852,32 @@ function showPage(id,el){
   document.getElementById('page-'+id).classList.add('active');
   el.classList.add('active');
   if(id==='skills') initSkillBars();
+  if(id==='policy') initPolicyCharts();
+}
+let policyChartsInit=false;
+function initPolicyCharts(){
+  if(policyChartsInit) return;
+  policyChartsInit=true;
+  const BLUE2='#2196f3',GREEN2='#4caf50',GREEN3='#81c784',GOLD='#f9a825',RED2='#ef5350',TEXT='#e8f0fe',TEXT2='#90a4ae';
+  function pOpts(extra={}){return{responsive:true,maintainAspectRatio:true,animation:{duration:600},plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(8,15,26,0.92)',titleColor:TEXT,bodyColor:TEXT2,borderColor:'rgba(30,48,72,0.8)',borderWidth:1,padding:10},...(extra.plugins||{})},scales:{x:{ticks:{color:TEXT2,font:{size:9.5}},grid:{color:'rgba(30,48,72,0.5)'}},y:{ticks:{color:TEXT2,font:{size:9.5}},grid:{color:'rgba(30,48,72,0.5)'}},...(extra.scales||{})}};};}
+  // Cost comparison grouped bar
+  new Chart(document.getElementById('c_cost_comparison'),{type:'bar',data:{
+    labels:['Salary (3 yrs)','Sponsorship Fees','Turnover Replacement','Productivity Loss'],
+    datasets:[
+      {label:'Domestic Graduate',data:[84000,0,27553,5815],backgroundColor:'rgba(33,150,243,0.7)',borderColor:BLUE2,borderWidth:1.5,borderRadius:4},
+      {label:'International + Sponsorship',data:[84000,10247,11021,2326],backgroundColor:'rgba(76,175,80,0.65)',borderColor:GREEN2,borderWidth:1.5,borderRadius:4}
+    ]},options:{responsive:true,maintainAspectRatio:true,animation:{duration:600},plugins:{legend:{display:true,position:'top',labels:{color:TEXT,font:{size:10},boxWidth:12,padding:12}},tooltip:{backgroundColor:'rgba(8,15,26,0.92)',titleColor:TEXT,bodyColor:TEXT2,borderColor:'rgba(30,48,72,0.8)',borderWidth:1,padding:10}},scales:{x:{ticks:{color:TEXT2,font:{size:9}},grid:{color:'rgba(30,48,72,0.5)'}},y:{ticks:{color:TEXT2,font:{size:9},callback:v=>'£'+Math.round(v/1000)+'k'},grid:{color:'rgba(30,48,72,0.5)'}}}}});
+  // Break-even line chart
+  const months=Array.from({length:36},(_,i)=>i+1);
+  const sal=28000/12;
+  const dom=months.map(m=>Math.round(sal*m+(m>=10?27553*0.9*Math.min((m-10)/14,1):0)+(m>=24?5815*0.9*Math.min((m-24)/12,1):0)));
+  const intl=months.map(m=>Math.round(sal*m+10247+(m>=20?11021*0.9*Math.min((m-20)/16,1):0)+(m>=20?2326*Math.min((m-20)/16,1):0)));
+  new Chart(document.getElementById('c_breakeven'),{type:'line',data:{
+    labels:months.map(m=>m%6===0?'Mo '+m:''),
+    datasets:[
+      {label:'Domestic Graduate',data:dom,borderColor:BLUE2,backgroundColor:'rgba(33,150,243,0.06)',fill:true,tension:0.4,borderWidth:2.5,pointRadius:0,pointHoverRadius:4},
+      {label:'International + Sponsorship',data:intl,borderColor:GREEN2,backgroundColor:'rgba(76,175,80,0.06)',fill:true,tension:0.4,borderWidth:2.5,pointRadius:0,pointHoverRadius:4}
+    ]},options:{responsive:true,maintainAspectRatio:true,animation:{duration:600},plugins:{legend:{display:true,position:'top',labels:{color:TEXT,font:{size:10},boxWidth:12,padding:12}},tooltip:{backgroundColor:'rgba(8,15,26,0.92)',titleColor:TEXT,bodyColor:TEXT2,borderColor:'rgba(30,48,72,0.8)',borderWidth:1,padding:10},annotation:{annotations:{breakeven:{type:'line',xMin:25,xMax:25,borderColor:GOLD,borderWidth:2,borderDash:[5,4],label:{display:true,content:'Break-even ~Mo 26',position:'start',backgroundColor:'rgba(249,168,37,0.12)',color:GOLD,font:{size:9,weight:'bold'},padding:{x:5,y:3}}}}}},scales:{x:{ticks:{color:TEXT2,font:{size:8.5},maxRotation:0},grid:{color:'rgba(30,48,72,0.5)'}},y:{ticks:{color:TEXT2,font:{size:9},callback:v=>'£'+Math.round(v/1000)+'k'},grid:{color:'rgba(30,48,72,0.5)'}}}}});
 }
 
 // ── KPI COUNTER ───────────────────────────────────────────
@@ -1163,51 +1189,7 @@ new Chart(document.getElementById('c_policy_vacancies'),{type:'line',data:{
     starmer:{type:'label',xValue:'2026',yValue:707,content:'Starmer resigns',backgroundColor:'rgba(249,168,37,0.12)',color:GOLD,font:{size:8,weight:'bold'},padding:{x:4,y:2},borderRadius:3}
   }}},scales:scl({y:{min:500,ticks:{callback:v=>v+'k',font:{size:9.5}},grid:{color:'rgba(30,48,72,0.5)'}}})})});
 
-// ── COST COMPARISON (grouped bar) ─────────────────────────────────────────────
-new Chart(document.getElementById('c_cost_comparison'),{type:'bar',data:{
-  labels:['Salary\n(3 yrs)','Sponsorship\nFees','Turnover\nReplacement','Productivity\nLoss'],
-  datasets:[
-    {label:'Domestic Graduate',data:[84000,0,27553,5815],backgroundColor:'rgba(33,150,243,0.7)',borderColor:BLUE2,borderWidth:1.5,borderRadius:4},
-    {label:'International + Sponsorship',data:[84000,10247,11021,2326],backgroundColor:'rgba(76,175,80,0.65)',borderColor:GREEN2,borderWidth:1.5,borderRadius:4}
-  ]},options:opts({plugins:{...opts().plugins,legend:{display:true,position:'top',labels:{color:TEXT,font:{size:10},boxWidth:12,padding:12}}},
-  scales:scl({y:{ticks:{callback:v=>'£'+Math.round(v/1000)+'k',font:{size:9}},grid:{color:'rgba(30,48,72,0.5)'}},x:{ticks:{font:{size:9},color:TEXT2}}})})});
-
-// ── BREAK-EVEN LINE CHART ─────────────────────────────────────────────────────
-(function(){
-  // Build cumulative cost month by month (36 months)
-  const months=Array.from({length:36},(_,i)=>i+1);
-  const monthlySalary=28000/12;
-  // Domestic: upfront £0, monthly salary, plus replacement events at ~30%/yr
-  // each replacement = £30,614, expected at roughly month 10 and month 24
-  const domCumulative=months.map(m=>{
-    let cost=monthlySalary*m;
-    if(m>=10) cost+=27553*(m>=10?Math.min((m-10)/12,0.9):0);
-    if(m>=24) cost+=5815*(m>=24?Math.min((m-24)/12,0.5):0);
-    return Math.round(monthlySalary*m + (m>=10?27553*0.9*(Math.min(m,24)-10)/14:0) + (m>=24?27553*0.9*(m-24)/12*0.3:0) + (m>=10?5815*(m-10)/26:0));
-  });
-  const intCumulative=months.map(m=>{
-    const base=monthlySalary*m+10247; // upfront sponsorship in month 1
-    const turnover=m>=20?11021*0.9*(m-20)/16:0;
-    const prodLoss=m>=20?2326*(m-20)/16:0;
-    return Math.round(base+turnover+prodLoss);
-  });
-  new Chart(document.getElementById('c_breakeven'),{type:'line',data:{
-    labels:months.map(m=>m%6===0?'Mo '+m:''),
-    datasets:[
-      {label:'Domestic Graduate',data:domCumulative,borderColor:BLUE2,backgroundColor:'rgba(33,150,243,0.06)',fill:true,tension:0.4,borderWidth:2.5,pointRadius:0,pointHoverRadius:4},
-      {label:'International + Sponsorship',data:intCumulative,borderColor:GREEN2,backgroundColor:'rgba(76,175,80,0.06)',fill:true,tension:0.4,borderWidth:2.5,pointRadius:0,pointHoverRadius:4}
-    ]},options:opts({
-      plugins:{...opts().plugins,
-        legend:{display:true,position:'top',labels:{color:TEXT,font:{size:10},boxWidth:12,padding:12}},
-        annotation:{annotations:{
-          breakeven:{type:'line',xMin:25,xMax:25,borderColor:GOLD,borderWidth:2,borderDash:[5,4],label:{display:true,content:'Break-even ~Mo 26',position:'start',backgroundColor:'rgba(249,168,37,0.12)',color:GOLD,font:{size:9,weight:'bold'},padding:{x:5,y:3}}},
-          label:{type:'label',xValue:27,yValue:intCumulative[28]||95000,content:'Sponsored hire\ncheaper from here',color:GREEN3,font:{size:8},padding:{x:4,y:2}}
-        }}
-      },
-      scales:scl({y:{ticks:{callback:v=>'£'+Math.round(v/1000)+'k',font:{size:9}},grid:{color:'rgba(30,48,72,0.5)'}},x:{ticks:{color:TEXT2,font:{size:8.5},maxRotation:0}}})
-    })
-  });
-})();
+// cost comparison + breakeven charts now initialised lazily via initPolicyCharts() when Policy page opens
 </script>
 </body>
 </html>
